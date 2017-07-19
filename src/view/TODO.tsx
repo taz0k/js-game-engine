@@ -8,6 +8,9 @@ export default class TODO extends React.Component {
 
 == git ==
 
+* git pull --rebase origin master
+    if master has had commits since you branched, now you get those updates too.
+
 * git ls-remote --heads origin
     ger mig en lista på vilka branches som finns på GitHub (förutsatt att origin=GitHub)
 
