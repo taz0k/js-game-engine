@@ -6,7 +6,7 @@ export default class TODO extends React.Component {
       <pre>{`
 = TODO =
 
-* What is "get pull" and "get sync"?
+* What is "get pull", "get sync" and "git push"?
 
 * css modules in React:
     https://javascriptplayground.com/blog/2016/07/css-modules-webpack-react/
