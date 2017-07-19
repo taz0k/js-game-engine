@@ -8,12 +8,17 @@ export default class TODO extends React.Component {
 
 == git ==
 
+* git ls-remote --heads origin
+    ger mig en lista på vilka branches som finns på GitHub (förutsatt att origin=GitHub)
+
 * git pull --prune
   git branch -d local_branch_name
     branches that have been removed from GitHub are
     removed from local repository.
 
 = TODO =
+
+* If I want to download a branch which I don't have 
 
 * What is "get pull", "get sync" and "git push"?
 
