@@ -9,6 +9,7 @@ export default class TODO extends React.Component {
 == git ==
 
 * git pull --prune
+  git branch -d local_branch_name
     branches that have been removed from GitHub are
     removed from local repository.
 
