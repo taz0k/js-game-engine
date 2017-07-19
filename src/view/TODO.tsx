@@ -4,6 +4,14 @@ export default class TODO extends React.Component {
   render() {
     return (
       <pre>{`
+= Good to know =
+
+== git ==
+
+* git pull --prune
+    branches that have been removed from GitHub are
+    removed from local repository.
+
 = TODO =
 
 * What is "get pull", "get sync" and "git push"?
