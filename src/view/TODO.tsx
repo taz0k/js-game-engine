@@ -22,7 +22,8 @@ export default class TODO extends React.Component {
 = TODO =
 
 * What the fuck? Hoppa mellan branches i VSCode gör ingen skillnad på filerna.
-    Är det fel? 
+    Är det fel?
+    Nu funkar det igen???
 
 * If I want to download a branch which I don't have 
 
