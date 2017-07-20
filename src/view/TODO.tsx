@@ -22,6 +22,8 @@ export default class TODO extends React.Component {
 
 = TODO =
 
+* På Firefox så ritas det ut tiles oavsett om man trycker på mouseLeft eller inte.
+
 * What the fuck? Hoppa mellan branches i VSCode gör ingen skillnad på filerna.
     Är det fel?
     Nu funkar det igen???

@@ -42,6 +42,9 @@ export default class Viewport extends React.Component<{}, ViewportState> {
             <div className="menuItem isLink">
               Draw collision
             </div>
+            <div className="menuItem isLink">
+              Demo (studsboll)
+            </div>
 
             {Array.apply(0, Array(15)).map((x:any, i:any) =>
               <div className="menuItem">
