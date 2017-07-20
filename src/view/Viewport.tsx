@@ -2,13 +2,6 @@ import * as React from "react";
 
 import "./styles/Viewport.sass";
 
-import TODO from "./TODO";
-
-
-import GameWindow from "../view/GameWindow"
-import TilesetViewer from "../view/TilesetViewer"
-import SpriteViewer from "../view/SpriteViewer"
-import TilesetLoader from "../view/TilesetLoader"
 import Menu from "../view/Menu"
 
 interface ViewportState {
@@ -36,29 +29,9 @@ export default class Viewport extends React.Component<{}, ViewportState> {
 
           <Menu />
 
-          <div style={{
-            flex: '1',
-            overflowY: 'scroll'
-          }}>
+          {this.props.children}
 
-            {/*<TilesetLoader />*/}
-            <div style={{
-              display: 'flex',
-              alignItems: "flex-start",
-              justifyContent: 'space-around', 
-              borderStyle: 'solid',
-              borderWidth: '2px'
-            }}>
-              <TilesetViewer columns={8} />
-              <SpriteViewer />
-            </div>
-
-            <GameWindow />
-
-            <TODO />
-          </div>
         </div>
-        {/*<History />*/}
       </div>
     );
   }

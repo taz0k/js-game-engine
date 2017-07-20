@@ -13,7 +13,7 @@ export default class Menu extends React.Component<{}, {}> {
           <a href="#/">Draw tiles</a>
         </div>
         <div className="menuItem isLink">
-          Draw collision
+          <Link to="collisions">Draw collision</Link>
         </div>
         <div className="menuItem isLink">
           Demo (studsboll)
