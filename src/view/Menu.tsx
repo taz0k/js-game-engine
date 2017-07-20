@@ -1,7 +1,5 @@
 import * as React from "react";
-//import { RoomNonScrolling } from "../controller/RoomNonScrolling";
-//import { store } from "../stores/Store";
-//import * as $ from "jquery";
+import { Link } from "react-router"
 
 import "./styles/Menu.sass"
 
@@ -12,7 +10,7 @@ export default class Menu extends React.Component<{}, {}> {
         /*overflowY: 'scroll'*/
       }}>
         <div className="menuItem isLink">
-          Draw tiles
+          <a href="#/">Draw tiles</a>
         </div>
         <div className="menuItem isLink">
           Draw collision

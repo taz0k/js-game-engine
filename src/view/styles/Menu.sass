@@ -12,6 +12,10 @@ $hueRotate: 25
   border-color: darkblue
   color: white
 
+.menuItem a
+  color: inherit /* blue colors for links too */
+  text-decoration: inherit /* no underline */
+
 @for $i from 1 to 20
   .menuItem:nth-of-type(#{$i})
     background-color: hsl(240+$i*$hueRotate,70%,50%)
