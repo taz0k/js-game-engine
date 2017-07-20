@@ -1,8 +1,7 @@
 import * as React from "react";
-
 import { RoomNonScrolling } from "../controller/RoomNonScrolling";
-
 import { store } from "../stores/Store";
+import * as $ from "jquery";
 
 import "./styles/GameWindow.sass"
 
@@ -57,8 +56,8 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
           this.canvas = $('<canvas/>').css({width:this.width + 'px', height: this.height + 'px'})[0];
           this.canvas.getContext('2d').drawImage(this, 0, 0, this.width, this.height);
       }*/
-      var offX  = (e.offsetX || e.clientX - eval("$")(e.target).offset().left);
-      var offY  = (e.offsetY || e.clientY - eval("$")(e.target).offset().top);
+      var offX  = (e.offsetX || e.clientX - $(e.target).offset().left);
+      var offY  = (e.offsetY || e.clientY - $(e.target).offset().top);
 
       let spriteX = Math.floor((offX / 16)/s);
       let spriteY = Math.floor((offY / 16)/s);
@@ -78,13 +77,13 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
       }
     }
 
-    eval("$")('#gameCanvas').mousemove(function(e:any) {
+    $('#gameCanvas').mousemove(function(e:any) {
       if(e.which === 1){
         draw(e);
       }
     });
 
-    eval("$")('#gameCanvas').click(function(e:any) {
+    $('#gameCanvas').click(function(e:any) {
       draw(e);
     });
   }

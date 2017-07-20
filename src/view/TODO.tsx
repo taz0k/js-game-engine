@@ -13,6 +13,7 @@ export default class TODO extends React.Component {
 
 * git ls-remote --heads origin
     ger mig en lista på vilka branches som finns på GitHub (förutsatt att origin=GitHub)
+    otherwise one can try "git branch -a", "git branch -r" or "git remote show origin"
 
 * git pull --prune
   git branch -d local_branch_name
@@ -20,6 +21,10 @@ export default class TODO extends React.Component {
     removed from local repository.
 
 = TODO =
+
+* What the fuck? Hoppa mellan branches i VSCode gör ingen skillnad på filerna.
+    Är det fel?
+    Nu funkar det igen???
 
 * If I want to download a branch which I don't have 
 
