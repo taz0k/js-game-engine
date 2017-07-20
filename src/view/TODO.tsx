@@ -13,6 +13,7 @@ export default class TODO extends React.Component {
 
 * git ls-remote --heads origin
     ger mig en lista på vilka branches som finns på GitHub (förutsatt att origin=GitHub)
+    otherwise one can try "git branch -a", "git branch -r" or "git remote show origin"
 
 * git pull --prune
   git branch -d local_branch_name
