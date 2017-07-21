@@ -26,6 +26,12 @@ export default class TODO extends React.Component {
 
 = TODO =
 
+* Possible optimization improvements:
+    * Each Map has a 2d array of POINTERS to Sprite objects.
+        Then each Sprite object calculates and stores a
+        context.createImageData(16, 16) so that it can be drawn with
+        context.putImageData(...)
+
 * In the MapEditor I draw/edit the canvas object directly which SUCKS(!!!!!)
     What I should do instead is to make changes to my Game Engine Objects.
     The Game Engine and the View should be decoupled!!
