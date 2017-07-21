@@ -8,6 +8,10 @@ export default class TODO extends React.Component {
 
 == git ==
 
+* installed "git-upload" npm package globally
+    now I can stage, commit, and push at once with:
+      gitu "commit message"
+
 * git pull --rebase origin master
     if master has had commits since you branched, now you get those updates too.
 
@@ -21,6 +25,20 @@ export default class TODO extends React.Component {
     removed from local repository.
 
 = TODO =
+
+* Possible optimization improvements:
+    * Each Map has a 2d array of POINTERS to Sprite objects.
+        Then each Sprite object calculates and stores a
+        context.createImageData(16, 16) so that it can be drawn with
+        context.putImageData(...)
+
+* In the MapEditor I draw/edit the canvas object directly which SUCKS(!!!!!)
+    What I should do instead is to make changes to my Game Engine Objects.
+    The Game Engine and the View should be decoupled!!
+
+* Use latest react-router.
+    I am using version 2 but there is a very different version 4.
+    The "history" package may be removed with version 4??
 
 * På Firefox så ritas det ut tiles oavsett om man trycker på mouseLeft eller inte.
 

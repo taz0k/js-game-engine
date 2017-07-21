@@ -1,7 +1,7 @@
 import { Sprite16x16 } from "./Sprite16x16"
 import { PixelRGBA } from "./PixelRGBA"
 
-export class RoomNonScrolling {
+export class Map {
 
   constructor(){
     let height = 15; // 240/16;
@@ -29,5 +29,13 @@ export class RoomNonScrolling {
     let sprite = this.spriteColumns[column][row];
 
     return sprite.getPixel(pixelXIndexInSprite, pixelYIndexInSprite);
+  }
+
+  setPixel(x:number, y:number, pixel : PixelRGBA){
+    alert("not implemented");
+  }
+
+  drawSprite(spriteColumn : number, spriteRow : number, sprite : Sprite16x16){
+    this.spriteColumns[spriteColumn][spriteRow] = sprite; // TODO should I make sure to .clone() here??
   }
 }
