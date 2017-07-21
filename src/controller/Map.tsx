@@ -31,7 +31,11 @@ export class Map {
     return sprite.getPixel(pixelXIndexInSprite, pixelYIndexInSprite);
   }
 
-  drawSprite(column : number, row : number, sprite : Sprite16x16){
+  setPixel(x:number, y:number, pixel : PixelRGBA){
+    alert("not implemented");
+  }
 
+  drawSprite(spriteColumn : number, spriteRow : number, sprite : Sprite16x16){
+    this.spriteColumns[spriteColumn][spriteRow] = sprite; // TODO should I make sure to .clone() here??
   }
 }

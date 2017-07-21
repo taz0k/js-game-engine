@@ -30,7 +30,7 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
   }
 
   redrawMap(){
-    let map = new Map();
+    let map = store.currentMap;
 
     let s = this.state.scale;
 
@@ -52,67 +52,52 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
     }
   }
 
+  drawSprite(e : any){
+    /*if(!this.canvas) {
+        this.canvas = $('<canvas/>').css({width:this.width + 'px', height: this.height + 'px'})[0];
+        this.canvas.getContext('2d').drawImage(this, 0, 0, this.width, this.height);
+    }*/
+    var offX  = (e.offsetX || e.clientX - $(e.target).offset().left);
+    var offY  = (e.offsetY || e.clientY - $(e.target).offset().top);
+
+    let spriteColumn = Math.floor((offX / 16)/this.state.scale);
+    let spriteRow = Math.floor((offY / 16)/this.state.scale);
+
+    /*var pixelData = this.canvas.getContext('2d').getImageData(offX, offY, 1, 1).data;
+    $('#output').html('R: ' + pixelData[0] + '<br>G: ' + pixelData[1] + '<br>B: ' + pixelData[2] + '<br>A: ' + pixelData[3]);*/
+    //console.log(`{${offX}, ${offY}} {${spriteX}, ${spriteY}}`);
+
+    // so draw the damn Sprite already!!
+
+    // First draw to the Map object,
+    //  then draw the WHOLE Map again.
+
+    store.currentMap.drawSprite(spriteColumn, spriteRow, store.selectedSprite);
+
+    this.redrawMap();
+
+    /*for(let x=0; x<16; x++){ // TODO. This should be extracted to a method.
+      for(let y=0; y<16; y++){
+        let p = store.selectedSprite.getPixel(x, y);  // TODO. I get the sprite directly from the store. Dunno if this is stupid.
+        context.fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.a})`;
+        context.fillRect(spriteColumn*16*s+x*s, spriteRow*16*s+y*s, 1*s, 1*s);
+      }
+    }*/
+  }
+
   componentDidMount(){
-    let map = new Map();
+    this.redrawMap();
 
-    let s = this.state.scale;
-
-    //var resolution = 500;
-
-    let canvas:any = document.getElementById("gameCanvas");
-    let context = canvas.getContext("2d");
-
-    context.fillStyle = "rgba(0,255,0,1)";
-    //context.fillRect(0, 0, 256, 240);
-
-    for(let x=0; x<256; x++){
-      for(let y=0; y<240; y++){
-        let p = map.getPixel(x, y);
-        let fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.a})`
-        context.fillStyle = fillStyle;
-        context.fillRect(x*s, y*s, 1*s, 1*s);
-      }
-    }
-
-    let draw = function(e : any){
-      /*if(!this.canvas) {
-          this.canvas = $('<canvas/>').css({width:this.width + 'px', height: this.height + 'px'})[0];
-          this.canvas.getContext('2d').drawImage(this, 0, 0, this.width, this.height);
-      }*/
-      var offX  = (e.offsetX || e.clientX - $(e.target).offset().left);
-      var offY  = (e.offsetY || e.clientY - $(e.target).offset().top);
-
-      let spriteColumn = Math.floor((offX / 16)/s);
-      let spriteRow = Math.floor((offY / 16)/s);
-
-      /*var pixelData = this.canvas.getContext('2d').getImageData(offX, offY, 1, 1).data;
-      $('#output').html('R: ' + pixelData[0] + '<br>G: ' + pixelData[1] + '<br>B: ' + pixelData[2] + '<br>A: ' + pixelData[3]);*/
-      //console.log(`{${offX}, ${offY}} {${spriteX}, ${spriteY}}`);
-
-      // so draw the damn Sprite already!!
-
-      // First draw to the Map object,
-      //  then draw the WHOLE Map again.
-
-      map.drawSprite(spriteColumn, spriteRow, store.selectedSprite);
-
-      for(let x=0; x<16; x++){ // TODO. This should be extracted to a method.
-        for(let y=0; y<16; y++){
-          let p = store.selectedSprite.getPixel(x, y);  // TODO. I get the sprite directly from the store. Dunno if this is stupid.
-          context.fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.a})`;
-          context.fillRect(spriteColumn*16*s+x*s, spriteRow*16*s+y*s, 1*s, 1*s);
-        }
-      }
-    }
+    let thisObject = this;
 
     $('#gameCanvas').mousemove(function(e:any) {
       if(e.which === 1){
-        draw(e);
+        thisObject.drawSprite(e);
       }
     });
 
     $('#gameCanvas').click(function(e:any) {
-      draw(e);
+      thisObject.drawSprite(e);
     });
   }
 
