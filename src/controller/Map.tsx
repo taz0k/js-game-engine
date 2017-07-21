@@ -36,6 +36,11 @@ export class Map {
   }
 
   drawSprite(spriteColumn : number, spriteRow : number, sprite : Sprite16x16){
-    this.spriteColumns[spriteColumn][spriteRow] = sprite; // TODO should I make sure to .clone() here??
+    try {
+      this.spriteColumns[spriteColumn][spriteRow] = sprite; // TODO should I make sure to .clone() here??
+    }
+    catch(err) {
+      alert(err.message);
+    }
   }
 }

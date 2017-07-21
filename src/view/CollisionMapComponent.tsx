@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Map } from "../controller/Map";
+import { CollisionMap } from "../controller/CollisionMap";
 import { store } from "../stores/Store";
 import * as $ from "jquery";
 
-import "./styles/GameWindow.sass"
+import "./styles/CollisionMap.sass"
 
 
-interface GameWindowState {
+interface CollisionMapComponentState {
   scale : number;
   //context : any;
 }
@@ -16,7 +16,7 @@ interface WebGL2D {
 } // TODO this looks like shit
 declare function WebGL2DScreen(x : any) : any;
 
-export default class GameWindow extends React.Component<{}, GameWindowState> {
+export default class CollisionMapComponent extends React.Component<{}, CollisionMapComponentState> {
   constructor(){
     super();
     this.state = {
@@ -26,13 +26,13 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
   }
 
   redrawMap(){
-    let map = store.currentMap;
+    let map = store.currentCollisionMap;
 
     let s = this.state.scale;
 
     for(let x=0; x<256; x++){
       for(let y=0; y<240; y++){
-        let p = map.getPixel(x, y);
+        let isCollision = map.isCollisionOnPixel(x, y);
         /*let fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.a})`
         this.context.fillStyle = fillStyle;
         this.context.fillRect(x*s, y*s, 1*s, 1*s);*/
@@ -45,10 +45,17 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
             let yPos = y*256*Math.pow(s, 2) + i_y*256*s;
             let pixelPos = (xPos + yPos)*4;
 
-            this.imageData_data[pixelPos+0]   = p.r;
-            this.imageData_data[pixelPos+1]   = p.g;
-            this.imageData_data[pixelPos+2]   = p.b;
-            this.imageData_data[pixelPos+3]   = p.a;
+            let value;
+            if(isCollision){
+              value = 255; // draw collision as white
+            }else{
+              value = 0; // draw not collision as transparent
+            }
+
+            this.imageData_data[pixelPos+0]   = value;
+            this.imageData_data[pixelPos+1]   = value;
+            this.imageData_data[pixelPos+2]   = value;
+            this.imageData_data[pixelPos+3]   = value;
           }
         }
       }
@@ -60,11 +67,9 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
     //   then draw it all
   }
 
-  drawSprite(e : any){
-    /*if(!this.canvas) {
-        this.canvas = $('<canvas/>').css({width:this.width + 'px', height: this.height + 'px'})[0];
-        this.canvas.getContext('2d').drawImage(this, 0, 0, this.width, this.height);
-    }*/
+
+  setCollisionOnCell(e : any, setIfTrueElseUnset : boolean){
+
     var offX  = (e.offsetX || e.clientX - $(e.target).offset().left);
     var offY  = (e.offsetY || e.clientY - $(e.target).offset().top);
 
@@ -80,17 +85,13 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
     // First draw to the Map object,
     //  then draw the WHOLE Map again.
 
-    store.currentMap.drawSprite(spriteColumn, spriteRow, store.selectedSprite);
+    if(setIfTrueElseUnset){
+      store.currentCollisionMap.setCollisionOnCell(spriteColumn, spriteRow);
+    }else{
+      store.currentCollisionMap.unsetCollisionOnCell(spriteColumn, spriteRow);
+    }
 
     this.redrawMap();
-
-    /*for(let x=0; x<16; x++){ // TODO. This should be extracted to a method.
-      for(let y=0; y<16; y++){
-        let p = store.selectedSprite.getPixel(x, y);  // TODO. I get the sprite directly from the store. Dunno if this is stupid.
-        context.fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.a})`;
-        context.fillRect(spriteColumn*16*s+x*s, spriteRow*16*s+y*s, 1*s, 1*s);
-      }
-    }*/
   }
 
   context : any;
@@ -98,7 +99,7 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
   imageData_data : any = null;
 
   domManipulationAfterRender(){
-    let canvas:any = document.getElementById("gameCanvas");
+    let canvas:any = document.getElementById("collisionMapCanvas");
     canvas = WebGL2DScreen(canvas); // this line enables WebGL. Remove it to go back to normal Canvas.
     this.context = canvas.getContext("2d");
 
@@ -109,31 +110,43 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
 
     let thisObject = this;
 
-    $('#gameCanvas').mousemove(function(e:any) {
+    $('#collisionMapCanvas').mousemove(function(e:any) {
       if(e.which === 1){
-        thisObject.drawSprite(e);
+        thisObject.setCollisionOnCell(e, true);
+      }else if(e.which === 3){
+        thisObject.setCollisionOnCell(e, false);
       }
     });
 
-    $('#gameCanvas').click(function(e:any) {
-      thisObject.drawSprite(e);
+    $('#collisionMapCanvas').click(function(e:any) {
+      thisObject.setCollisionOnCell(e, true);
+    });
+
+    $('#collisionMapCanvas').contextmenu(function(e:any) {
+      thisObject.setCollisionOnCell(e, false);
+      e.preventDefault();
     });
   }
 
   componentDidMount(){
-    //alert("GameWindow.componentDidMount");
+    //alert("CollisionMapComponent.componentDidMount");
+    this.domManipulationAfterRender();
+  }
+  
+  componentDidUpdate(){
+    //alert("CollisionMapComponent.componentDidUpdate");
     this.domManipulationAfterRender();
   }
 
-  componentDidUpdate(){
-    //alert("GameWindow.componentDidUpdate");
-    this.domManipulationAfterRender();
+  componentWillUnmount(){
+    //alert("CollisionMapComponent.componentWillUnmount");
   }
 
   render() {
+    //alert("CollisionMapComponent.render");
     return (
-      <div className="gameWindowContainer">
-        <canvas id="gameCanvas" className="gameCanvas" width={256*this.state.scale} height={240*this.state.scale}></canvas>
+      <div className="collisionMapContainer">
+        <canvas id="collisionMapCanvas" className="collisionMapCanvas" width={256*this.state.scale} height={240*this.state.scale}></canvas>
         <button>Show grid</button>
         <button>Load map</button>
         <button>Fill map with sprite</button>

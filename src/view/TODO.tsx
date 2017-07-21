@@ -26,6 +26,14 @@ export default class TODO extends React.Component {
 
 = TODO =
 
+* Solve this error:
+    CollisionMap.tsx:64 Uncaught TypeError: this.context.putImageData is not a function
+    at CollisionMapComponent.redrawMap (CollisionMap.tsx:64)
+    at CollisionMapComponent.drawSprite (CollisionMap.tsx:92)
+    at HTMLCanvasElement.<anonymous> (CollisionMap.tsx:126)
+    at HTMLCanvasElement.dispatch (jquery.js:5206)
+    at HTMLCanvasElement.elemData.handle (jquery.js:5014)
+
 * Possible optimization improvements:
     * Each Map has a 2d array of POINTERS to Sprite objects.
         Then each Sprite object calculates and stores a
