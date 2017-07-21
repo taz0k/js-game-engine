@@ -44,7 +44,7 @@ export default class SpriteViewer extends React.Component<{}, SpriteViewerState>
 
   componentWillMount(){
     store.on("change", this.updateWhichSpriteIsShown_WithThisBound);
-    console.log("count", store.listenerCount("change"));
+    //console.log("count", store.listenerCount("change"));
   }
 
   componentWillUnmount(){
