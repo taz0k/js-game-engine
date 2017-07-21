@@ -67,7 +67,8 @@ export default class CollisionMapComponent extends React.Component<{}, Collision
     //   then draw it all
   }
 
-  drawSprite(e : any){
+
+  setCollisionOnCell(e : any, setIfTrueElseUnset : boolean){
 
     var offX  = (e.offsetX || e.clientX - $(e.target).offset().left);
     var offY  = (e.offsetY || e.clientY - $(e.target).offset().top);
@@ -84,7 +85,11 @@ export default class CollisionMapComponent extends React.Component<{}, Collision
     // First draw to the Map object,
     //  then draw the WHOLE Map again.
 
-    store.currentCollisionMap.setCollisionOnCell(spriteColumn, spriteRow);
+    if(setIfTrueElseUnset){
+      store.currentCollisionMap.setCollisionOnCell(spriteColumn, spriteRow);
+    }else{
+      store.currentCollisionMap.unsetCollisionOnCell(spriteColumn, spriteRow);
+    }
 
     this.redrawMap();
   }
@@ -107,34 +112,41 @@ export default class CollisionMapComponent extends React.Component<{}, Collision
 
     $('#collisionMapCanvas').mousemove(function(e:any) {
       if(e.which === 1){
-        thisObject.drawSprite(e);
+        thisObject.setCollisionOnCell(e, true);
+      }else if(e.which === 3){
+        thisObject.setCollisionOnCell(e, false);
       }
     });
 
     $('#collisionMapCanvas').click(function(e:any) {
-      thisObject.drawSprite(e);
+      thisObject.setCollisionOnCell(e, true);
+    });
+
+    $('#collisionMapCanvas').contextmenu(function(e:any) {
+      thisObject.setCollisionOnCell(e, false);
+      e.preventDefault();
     });
   }
 
   componentDidMount(){
-    alert("CollisionMapComponent.componentDidMount");
+    //alert("CollisionMapComponent.componentDidMount");
     this.domManipulationAfterRender();
   }
   
   componentDidUpdate(){
-    alert("CollisionMapComponent.componentDidUpdate");
+    //alert("CollisionMapComponent.componentDidUpdate");
     this.domManipulationAfterRender();
   }
 
   componentWillUnmount(){
-    alert("CollisionMapComponent.componentWillUnmount");
+    //alert("CollisionMapComponent.componentWillUnmount");
   }
 
   render() {
-    alert("CollisionMapComponent.render");
+    //alert("CollisionMapComponent.render");
     return (
       <div className="collisionMapContainer">
-        <canvas id="collisionMapCanvas" className="collisionMapCanvas" onContextMenu={event => event.preventDefault()} width={256*this.state.scale} height={240*this.state.scale}></canvas>
+        <canvas id="collisionMapCanvas" className="collisionMapCanvas" width={256*this.state.scale} height={240*this.state.scale}></canvas>
         <button>Show grid</button>
         <button>Load map</button>
         <button>Fill map with sprite</button>
