@@ -10,7 +10,11 @@ interface GameWindowState {
   scale : number;
   //context : any;
 }
-
+declare var WebGL2D: any;
+interface WebGL2D {
+    enable(x : any): any;
+} // TODO this looks like shit
+declare function WebGL2DScreen(x : any) : any;
 
 export default class GameWindow extends React.Component<{}, GameWindowState> {
   constructor(){
@@ -43,13 +47,20 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
         this.context.fillStyle = fillStyle;
         this.context.fillRect(x*s, y*s, 1*s, 1*s);*/
 
-        this.imageData_data[0]   = p.r;
-        this.imageData_data[1]   = p.g;
-        this.imageData_data[2]   = p.b;
-        this.imageData_data[3]   = p.a;
-        this.context.putImageData( this.imageData, x*s, y*s );
+        let pixelPos = (x+y*256)*4;
+
+        this.imageData_data[pixelPos+0]   = p.r;
+        this.imageData_data[pixelPos+1]   = p.g;
+        this.imageData_data[pixelPos+2]   = p.b;
+        this.imageData_data[pixelPos+3]   = p.a;
+        //this.context.putImageData( this.imageData, 0, 0 );
       }
     }
+
+    this.context.putImageData( this.imageData, 0, 0 );
+
+    // draw everything to a giant imageData.data
+    //   then draw it all
   }
 
   drawSprite(e : any){
@@ -91,12 +102,10 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
 
   componentDidMount(){
     let canvas:any = document.getElementById("gameCanvas");
+    canvas = WebGL2DScreen(canvas); // this line enables WebGL. Remove it to go back to normal Canvas.
     this.context = canvas.getContext("2d");
 
-    this.context.fillStyle = "rgba(0,255,0,1)";
-    //context.fillRect(0, 0, 256, 240);
-
-    this.imageData = this.context.createImageData(1,1); // only do this once per page
+    this.imageData = this.context.createImageData(256, 240); // only do this once per page
     this.imageData_data  = this.imageData.data;                        // only do this once per page*/
 
     this.redrawMap();
