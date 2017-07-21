@@ -1,11 +1,13 @@
 import { EventEmitter } from "events";
 import { Sprite16x16 } from "../controller/Sprite16x16"
 import { Map } from "../controller/Map"
+import { CollisionMap } from "../controller/CollisionMap"
 import dispatcher from "../dispatchers/Dispatcher";
 
 class Store extends EventEmitter {
   selectedSprite : Sprite16x16 = new Sprite16x16();
   currentMap : Map = new Map(); // TODO this "might" be ugly. Storing global vars on a Store??
+  currentCollisionMap : CollisionMap = new CollisionMap();
 
   changeSelectedSprite(sprite : Sprite16x16){
     this.selectedSprite = sprite;

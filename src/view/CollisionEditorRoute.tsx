@@ -8,6 +8,7 @@ import GameWindow from "../view/GameWindow"
 //import TilesetViewer from "../view/TilesetViewer"
 //import SpriteViewer from "../view/SpriteViewer"
 //import TilesetLoader from "../view/TilesetLoader"
+import CollisionMapComponent from "../view/CollisionMapComponent"
 
 //import "./styles/CollisionEditorRoute.sass"
 
@@ -28,11 +29,16 @@ export default class CollisionEditorRoute extends React.Component<{}, {}> {
           borderWidth: '2px'
         }}>
           <div>
-            Something here!
+            Left-clicking creates solid terrain. Right-clicking removes solid terrain.
           </div>
         </div>
 
-        <GameWindow />
+        <div style={{
+          position: "relative"
+        }}>
+          <GameWindow />
+          <CollisionMapComponent />
+        </div>
 
         <TODO />
       </div>
