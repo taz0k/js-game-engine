@@ -36,8 +36,6 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
 
     let s = this.state.scale;
 
-    //var resolution = 500;
-
     for(let x=0; x<256; x++){
       for(let y=0; y<240; y++){
         let p = map.getPixel(x, y);
