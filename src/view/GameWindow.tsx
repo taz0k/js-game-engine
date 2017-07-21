@@ -25,16 +25,6 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
     };
   }
 
-  setPixel(x:number, y:number){
-    /*var id = myContext.createImageData(1,1); // only do this once per page
-    var d  = id.data;                        // only do this once per page
-    d[0]   = r;
-    d[1]   = g;
-    d[2]   = b;
-    d[3]   = a;
-    myContext.putImageData( id, x, y );*/
-  }
-
   redrawMap(){
     let map = store.currentMap;
 

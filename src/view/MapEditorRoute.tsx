@@ -11,7 +11,7 @@ import TilesetLoader from "../view/TilesetLoader"
 
 //import "./styles/CollisionEditorRoute.sass"
 
-export default class CollisionEditorRoute extends React.Component<{}, {}> {
+export default class MapEditorRoute extends React.Component<{}, {}> {
   render() {
     return (
       <div style={{
