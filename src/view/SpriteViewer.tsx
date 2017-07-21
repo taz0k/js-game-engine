@@ -32,14 +32,23 @@ export default class SpriteViewer extends React.Component<{}, SpriteViewerState>
     myContext.putImageData( id, x, y );*/
   }
 
-  componentWillMount(){
-    store.on("change", () => {
-      //console.log("SpriteViewer change event;");
-      this.setState({
-        sprite: store.selectedSprite
-      });
-      this.drawSprite(store.selectedSprite);
+  updateWhichSpriteIsShown(){
+    //console.log("SpriteViewer change event;");
+    this.setState({
+      sprite: store.selectedSprite
     });
+    this.drawSprite(store.selectedSprite);
+  }
+
+  updateWhichSpriteIsShown_WithThisBound = this.updateWhichSpriteIsShown.bind(this);
+
+  componentWillMount(){
+    store.on("change", this.updateWhichSpriteIsShown_WithThisBound);
+    console.log("count", store.listenerCount("change"));
+  }
+
+  componentWillUnmount(){
+    store.removeListener("change", this.updateWhichSpriteIsShown_WithThisBound);
   }
 
   componentDidMount(){

@@ -26,6 +26,15 @@ export default class TODO extends React.Component {
 
 = TODO =
 
+* Fix these 3 errors:
+
+    * Warning: setState(...): Can only update a mounted or mounting component.
+    This usually means you called setState() on an unmounted component.
+    This is a no-op. Please check the code for the SpriteViewer component.
+
+    * (node) warning: possible EventEmitter memory leak detected. 11 listeners added. Use emitter.setMaxListeners() to increase limit.
+
+
 * Use latest react-router.
     I am using version 2 but there is a very different version 4.
     The "history" package may be removed with version 4??
