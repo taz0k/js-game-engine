@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RoomNonScrolling } from "../controller/RoomNonScrolling";
+import { Map } from "../controller/Map";
 import { store } from "../stores/Store";
 import * as $ from "jquery";
 
@@ -29,8 +29,8 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
     myContext.putImageData( id, x, y );*/
   }
 
-  componentDidMount(){
-    let room = new RoomNonScrolling();
+  redrawMap(){
+    let map = new Map();
 
     let s = this.state.scale;
 
@@ -44,7 +44,30 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
 
     for(let x=0; x<256; x++){
       for(let y=0; y<240; y++){
-        let p = room.getPixel(x, y);
+        let p = map.getPixel(x, y);
+        let fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.a})`
+        context.fillStyle = fillStyle;
+        context.fillRect(x*s, y*s, 1*s, 1*s);
+      }
+    }
+  }
+
+  componentDidMount(){
+    let map = new Map();
+
+    let s = this.state.scale;
+
+    //var resolution = 500;
+
+    let canvas:any = document.getElementById("gameCanvas");
+    let context = canvas.getContext("2d");
+
+    context.fillStyle = "rgba(0,255,0,1)";
+    //context.fillRect(0, 0, 256, 240);
+
+    for(let x=0; x<256; x++){
+      for(let y=0; y<240; y++){
+        let p = map.getPixel(x, y);
         let fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.a})`
         context.fillStyle = fillStyle;
         context.fillRect(x*s, y*s, 1*s, 1*s);
@@ -59,8 +82,8 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
       var offX  = (e.offsetX || e.clientX - $(e.target).offset().left);
       var offY  = (e.offsetY || e.clientY - $(e.target).offset().top);
 
-      let spriteX = Math.floor((offX / 16)/s);
-      let spriteY = Math.floor((offY / 16)/s);
+      let spriteColumn = Math.floor((offX / 16)/s);
+      let spriteRow = Math.floor((offY / 16)/s);
 
       /*var pixelData = this.canvas.getContext('2d').getImageData(offX, offY, 1, 1).data;
       $('#output').html('R: ' + pixelData[0] + '<br>G: ' + pixelData[1] + '<br>B: ' + pixelData[2] + '<br>A: ' + pixelData[3]);*/
@@ -68,11 +91,16 @@ export default class GameWindow extends React.Component<{}, GameWindowState> {
 
       // so draw the damn Sprite already!!
 
+      // First draw to the Map object,
+      //  then draw the WHOLE Map again.
+
+      map.drawSprite(spriteColumn, spriteRow, store.selectedSprite);
+
       for(let x=0; x<16; x++){ // TODO. This should be extracted to a method.
         for(let y=0; y<16; y++){
           let p = store.selectedSprite.getPixel(x, y);  // TODO. I get the sprite directly from the store. Dunno if this is stupid.
           context.fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.a})`;
-          context.fillRect(spriteX*16*s+x*s, spriteY*16*s+y*s, 1*s, 1*s);
+          context.fillRect(spriteColumn*16*s+x*s, spriteRow*16*s+y*s, 1*s, 1*s);
         }
       }
     }

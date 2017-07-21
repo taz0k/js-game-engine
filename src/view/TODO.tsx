@@ -26,14 +26,9 @@ export default class TODO extends React.Component {
 
 = TODO =
 
-* Fix these 3 errors:
-
-    * Warning: setState(...): Can only update a mounted or mounting component.
-    This usually means you called setState() on an unmounted component.
-    This is a no-op. Please check the code for the SpriteViewer component.
-
-    * (node) warning: possible EventEmitter memory leak detected. 11 listeners added. Use emitter.setMaxListeners() to increase limit.
-
+* In the MapEditor I draw/edit the canvas object directly which SUCKS(!!!!!)
+    What I should do instead is to make changes to my Game Engine Objects.
+    The Game Engine and the View should be decoupled!!
 
 * Use latest react-router.
     I am using version 2 but there is a very different version 4.
