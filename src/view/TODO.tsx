@@ -26,6 +26,11 @@ export default class TODO extends React.Component {
 
 = TODO =
 
+* I now have two Canvas over each other.
+    I must change that to one canvas.
+    So that it just renders two passes or whatever.
+    Should be doable.
+
 * Possible optimization improvements:
     * Each Map has a 2d array of POINTERS to Sprite objects.
         Then each Sprite object calculates and stores a

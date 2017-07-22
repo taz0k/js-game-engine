@@ -1,18 +1,18 @@
 import * as React from "react";
 import { Link } from "react-router"
 
-import TODO from "./TODO";
+import TODO from "./../TODO";
 
 
-import GameWindow from "../view/GameWindow"
+import GameWindow from "../../view/GameWindow"
 //import TilesetViewer from "../view/TilesetViewer"
 //import SpriteViewer from "../view/SpriteViewer"
 //import TilesetLoader from "../view/TilesetLoader"
-import CollisionMapComponent from "../view/CollisionMapComponent"
+import CollisionMapComponent from "../../view/CollisionMapComponent"
 
 //import "./styles/CollisionEditorRoute.sass"
 
-export default class DemoRoute extends React.Component<{}, {}> {
+export default class CollisionEditorRoute extends React.Component<{}, {}> {
   render() {
     return (
       <div style={{
@@ -29,7 +29,7 @@ export default class DemoRoute extends React.Component<{}, {}> {
           borderWidth: '2px'
         }}>
           <div>
-            Demo!!!!!!!!!!!!!!!!
+            Left-clicking creates solid terrain. Right-clicking removes solid terrain.
           </div>
         </div>
 
