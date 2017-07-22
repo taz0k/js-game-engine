@@ -27,7 +27,7 @@ export default class MapEditorRoute extends React.Component<{}, {}> {
           borderStyle: 'solid',
           borderWidth: '2px'
         }}>
-          <TilesetViewer columns={8} />
+          <TilesetViewer columns={17} />
           <SpriteViewer />
         </div>
 
