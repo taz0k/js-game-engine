@@ -26,6 +26,9 @@ export default class TODO extends React.Component {
 
 = TODO =
 
+* "new-frame" event
+    that stuff including GameObjects can subscribe to.
+
 * I now have two Canvas over each other.
     I must change that to one canvas.
     So that it just renders two passes or whatever.

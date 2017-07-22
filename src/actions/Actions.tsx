@@ -7,3 +7,11 @@ export function changedSelectedSprite(sprite : Sprite16x16){
     sprite: sprite
   });
 }
+
+// signals that this frame is done
+//   and that we go to the next frame
+export function nextFrame(sprite : Sprite16x16){
+  dispatcher.dispatch({
+    type: "NEXT_FRAME"
+  });
+}
