@@ -107,8 +107,21 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
   intervalTimer : any = null;
 
   MoveGameObjectOneFrame(){
-    this.gameObject.position.x = this.gameObject.position.x + 1;
-    this.gameObject.position.y = this.gameObject.position.y + 1;
+    this.gameObject.position.x += this.gameObject.speed.x; // TODO These two line should be replaced with one function!!
+    this.gameObject.position.y += this.gameObject.speed.y;
+
+    // check if collision
+
+    let colmap = store.currentCollisionMap;
+    
+    if(this.gameObject.CollidesWithThisCollisionMap(colmap)){
+      this.gameObject.speed.x = -this.gameObject.speed.x; // TODO These two line should be replaced with one function!!
+      this.gameObject.speed.y = -this.gameObject.speed.y;
+
+      this.gameObject.position.x += this.gameObject.speed.x * 2; // TODO These two line should be replaced with one function!!
+      this.gameObject.position.y += this.gameObject.speed.y * 2;
+    }
+
     this.redrawMap();
   }
 

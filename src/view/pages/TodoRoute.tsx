@@ -29,6 +29,9 @@ export default class TodoRoute extends React.Component {
 
 = TODO =
 
+* Maybe GameObjects should keep a history of where they wer the last frames.
+    If they get stuck in wall the simply move back until they get un-stuck.
+
 * "new-frame" event
     that stuff including GameObjects can subscribe to.
 

@@ -1,6 +1,7 @@
 import { Sprite16x16 } from "./Sprite16x16"
 import { PixelRGBA } from "./PixelRGBA"
 import { Position } from "./Position"
+import { CollisionMap } from "./CollisionMap"
 
 // This class symbolizes enemies, characters and other
 //   such things that move around, animate and collide in the game.
@@ -18,6 +19,21 @@ export class GameObject {
   //  how I should implement this.
   height : number = 16;
   width : number = 16;
+
+  public speed : Position = new Position(1, 1); // TODO temporary default value.
+
+  CollidesWithThisCollisionMap(colmap : CollisionMap) : boolean {
+    let collides = false;
+    for(let x=0; x<16; x++){
+      for(let y=0; y<16; y++){
+        if(colmap.isCollisionOnPixel(this.position.x + x, this.position.y + y)){
+          collides = true;
+        }
+      }
+    }
+
+    return collides;
+  }
 
   // If this GameObject occupies global [x, y]
   OccupiesThisPixel(x : number, y : number) : boolean {
