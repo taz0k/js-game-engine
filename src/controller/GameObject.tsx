@@ -12,7 +12,7 @@ export class GameObject {
 
   // This is the TOP-LEFT position of an object.
   //   That is, it's not the center or anything such as that.
-  position : Position = new Position(0, 0);
+  public position : Position = new Position(0, 0);
 
   // TODO. These may be temporary because I don't know exactly how
   //  how I should implement this.

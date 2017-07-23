@@ -104,8 +104,22 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
   context : any;
   imageData : any = null;
   imageData_data : any = null;
+  intervalTimer : any = null;
+
+  MoveGameObjectOneFrame(){
+    this.gameObject.position.x = this.gameObject.position.x + 1;
+    this.gameObject.position.y = this.gameObject.position.y + 1;
+    this.redrawMap();
+  }
 
   domManipulationAfterRender(){
+    // TODO. start timer
+    // if it has not already been started
+    if(this.intervalTimer == null){
+      this.intervalTimer = setInterval(this.MoveGameObjectOneFrame.bind(this), 33);
+    }
+
+
     let canvas:any = document.getElementById("gameObjectLayerCanvas");
     canvas = WebGL2DScreen(canvas); // this line enables WebGL. Remove it to go back to normal Canvas.
     this.context = canvas.getContext("2d");
@@ -117,7 +131,7 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
 
     let thisObject = this;
 
-    $('#gameObjectLayerCanvas').mousemove(function(e:any) {
+    /*$('#gameObjectLayerCanvas').mousemove(function(e:any) {
       if(e.which === 1){
         //thisObject.drawSprite(e);
       }
@@ -125,12 +139,19 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
 
     $('#gameObjectLayerCanvas').click(function(e:any) {
       //thisObject.drawSprite(e);
-    });
+    });*/
   }
 
   componentDidMount(){
     //alert("GameObjectLayer.componentDidMount");
     this.domManipulationAfterRender();
+  }
+
+  componentWillUnmount(){
+    // TODO stop timer
+    // 
+    clearInterval(this.intervalTimer);
+    this.intervalTimer = null;
   }
 
   componentDidUpdate(){
