@@ -9,6 +9,7 @@ import GameWindow from "../../view/GameWindow"
 //import SpriteViewer from "../view/SpriteViewer"
 //import TilesetLoader from "../view/TilesetLoader"
 import CollisionMapComponent from "../../view/CollisionMapComponent"
+import GameObjectLayer from "../../view/GameObjectLayer"
 
 //import "./styles/CollisionEditorRoute.sass"
 
@@ -37,7 +38,7 @@ export default class DemoRoute extends React.Component<{}, {}> {
           position: "relative"
         }}>
           <GameWindow />
-          <CollisionMapComponent />
+          <GameObjectLayer />
         </div>
 
         <TODO />
