@@ -19,13 +19,13 @@ class Store extends EventEmitter {
   playerJumped(){
     
 
-    this.emit("change");
+    this.emit("PLAYER_JUMPED");
   }
 
   gravity(){
     
 
-    this.emit("change");
+    this.emit("GRAVITY");
   }
 
   handleActions(action:any){
