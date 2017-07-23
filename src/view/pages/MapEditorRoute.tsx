@@ -1,9 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router"
 
-import TODO from "./../TODO";
-
-
 import GameWindow from "../../view/GameWindow"
 import TilesetViewer from "../../view/TilesetViewer"
 import SpriteViewer from "../../view/SpriteViewer"
@@ -33,7 +30,6 @@ export default class MapEditorRoute extends React.Component<{}, {}> {
 
         <GameWindow />
 
-        <TODO />
       </div>
     );
   }

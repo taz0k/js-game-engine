@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default class TODO extends React.Component {
+export default class TodoRoute extends React.Component {
   render() {
     return (
       <pre>{`

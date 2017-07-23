@@ -18,6 +18,9 @@ export default class Menu extends React.Component<{}, {}> {
         <div className="menuItem isLink">
           <Link to="demo">Demo (studsboll)</Link>
         </div>
+        <div className="menuItem isLink">
+          <Link to="todo">Todo</Link>
+        </div>
 
         {Array.apply(0, Array(15)).map((x:any, i:any) =>
           <div className="menuItem">

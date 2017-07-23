@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router"
 
-import TODO from "./../TODO";
-
 
 import GameWindow from "../../view/GameWindow"
 //import TilesetViewer from "../view/TilesetViewer"
@@ -39,8 +37,7 @@ export default class CollisionEditorRoute extends React.Component<{}, {}> {
           <GameWindow />
           <CollisionMapComponent />
         </div>
-
-        <TODO />
+        
       </div>
     );
   }
