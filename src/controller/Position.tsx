@@ -1,9 +1,13 @@
 export class Position {
-  public x=0;
-  public y=0;
+  public x : number = 0;
+  public y : number = 0;
 
   constructor(x : number, y : number){
     this.x = x;
     this.y = y;
+  }
+
+  clone() : Position {
+    return new Position(this.x, this.y);
   }
 }

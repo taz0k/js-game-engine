@@ -29,6 +29,12 @@ export default class TodoRoute extends React.Component {
 
 = TODO =
 
+* When GameObjects collides, it should test to invert the speed
+    of first the x-axis and try if this direction will get it "out of collision"
+      if that works super!
+    else try inverst speed of y-axis -||-
+    else invert both axis -||-
+
 * Maybe GameObjects should keep a history of where they wer the last frames.
     If they get stuck in wall the simply move back until they get un-stuck.
 

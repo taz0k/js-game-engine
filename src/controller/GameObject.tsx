@@ -13,7 +13,11 @@ export class GameObject {
 
   // This is the TOP-LEFT position of an object.
   //   That is, it's not the center or anything such as that.
-  public position : Position = new Position(0, 0);
+  private position : Position = new Position(0, 0);
+
+  // This stores a history of movements
+  // TODO. This should be an array or list.
+  public previousPosition : Position = new Position(0, 0); // TODO. This should be taken from "position" at creation.
 
   // TODO. These may be temporary because I don't know exactly how
   //  how I should implement this.
@@ -21,6 +25,17 @@ export class GameObject {
   width : number = 16;
 
   public speed : Position = new Position(1, 1); // TODO temporary default value.
+
+  MoveAccordingToSpeed() : void {
+    this.Move(this.speed.x, this.speed.y);
+  }
+
+  Move(x : number, y : number) : void {
+    this.previousPosition = this.position.clone(); // TODO. Do I have to use .clone() here ???
+
+    this.position.x += x;
+    this.position.y += y;
+  }
 
   CollidesWithThisCollisionMap(colmap : CollisionMap) : boolean {
     let collides = false;
