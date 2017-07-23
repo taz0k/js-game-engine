@@ -2,6 +2,7 @@ import * as React from "react";
 import { Map } from "../controller/Map";
 import { store } from "../stores/Store";
 import { GameObject } from "../controller/GameObject";
+import { Position } from "../controller/Position";
 import * as $ from "jquery";
 
 import "./styles/GameObjectLayer.sass"
@@ -113,13 +114,34 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
 
     let colmap = store.currentCollisionMap;
 
+    let oldSpeed : Position = this.gameObject.speed.clone();
+
     if(this.gameObject.CollidesWithThisCollisionMap(colmap)){
-      //try to invert speed of x-axis and make a movement.
+      //revert, try to invert speed of x-axis and make a movement.
+      this.gameObject.RevertMovement();
+      this.gameObject.speed.x = -oldSpeed.x;
+      this.gameObject.speed.y = oldSpeed.y;
+      this.gameObject.MoveAccordingToSpeed();
 
-      this.gameObject.speed.x = -this.gameObject.speed.x; // TODO These two line should be replaced with one function!!
-      this.gameObject.speed.y = -this.gameObject.speed.y;
+      if(this.gameObject.CollidesWithThisCollisionMap(colmap)){
+        //revert, try to invert y-speed, then try to move again.
+        this.gameObject.RevertMovement();
+        this.gameObject.speed.x = oldSpeed.x;
+        this.gameObject.speed.y = -oldSpeed.y;
+        this.gameObject.MoveAccordingToSpeed();
 
-      this.gameObject.Move(this.gameObject.speed.x * 2, this.gameObject.speed.y * 2);
+        if(this.gameObject.CollidesWithThisCollisionMap(colmap)){
+          //revert, try to invert x- and y-speed, then try to move again.
+          this.gameObject.RevertMovement();
+          this.gameObject.speed.x = -oldSpeed.x;
+          this.gameObject.speed.y = -oldSpeed.y;
+          this.gameObject.MoveAccordingToSpeed();
+
+          if(this.gameObject.CollidesWithThisCollisionMap(colmap)){
+            alert("Stuck in wall :'(");
+          }
+        }
+      }
     }
 
     this.redrawMap();

@@ -13,18 +13,18 @@ export class GameObject {
 
   // This is the TOP-LEFT position of an object.
   //   That is, it's not the center or anything such as that.
-  private position : Position = new Position(0, 0);
+  private position : Position = new Position(32, 32);
 
   // This stores a history of movements
   // TODO. This should be an array or list.
-  public previousPosition : Position = new Position(0, 0); // TODO. This should be taken from "position" at creation.
+  public previousPosition : Position = new Position(32, 32); // TODO. This should be taken from "position" at creation.
 
   // TODO. These may be temporary because I don't know exactly how
   //  how I should implement this.
   height : number = 16;
   width : number = 16;
 
-  public speed : Position = new Position(1, 1); // TODO temporary default value.
+  public speed : Position = new Position(1.5, 1.5); // TODO temporary default value.
 
   MoveAccordingToSpeed() : void {
     this.Move(this.speed.x, this.speed.y);
@@ -35,6 +35,11 @@ export class GameObject {
 
     this.position.x += x;
     this.position.y += y;
+  }
+
+  RevertMovement() : void {
+    this.position.x = this.previousPosition.x;
+    this.position.y = this.previousPosition.y;
   }
 
   CollidesWithThisCollisionMap(colmap : CollisionMap) : boolean {
