@@ -3,7 +3,10 @@ import * as React from "react";
 export default class TodoRoute extends React.Component {
   render() {
     return (
-      <pre>{`
+      <pre style={{
+        flex: '1',
+        overflowY: 'scroll'
+      }}>{`
 = Good to know =
 
 == git ==
