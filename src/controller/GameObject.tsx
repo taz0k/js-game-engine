@@ -24,7 +24,7 @@ export class GameObject {
   height : number = 16;
   width : number = 16;
 
-  public speed : Position = new Position(1.5, 1.5); // TODO temporary default value.
+  public speed : Position = new Position(2, 2); // TODO temporary default value.
 
   MoveAccordingToSpeed() : void {
     this.Move(this.speed.x, this.speed.y);

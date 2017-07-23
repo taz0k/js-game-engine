@@ -16,7 +16,7 @@ export default class Menu extends React.Component<{}, {}> {
           <Link to="collisions">Draw collision</Link>
         </div>
         <div className="menuItem isLink">
-          <Link to="demo">Demo (studsboll)</Link>
+          <Link to="demo">Demo</Link>
         </div>
         <div className="menuItem isLink">
           <Link to="todo">Todo</Link>

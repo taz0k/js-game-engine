@@ -29,6 +29,10 @@ export default class TodoRoute extends React.Component {
 
 = TODO =
 
+* Add gravity.
+
+* Add so keys can add speed to GameObject.
+
 * When GameObjects collides, it should test to invert the speed
     of first the x-axis and try if this direction will get it "out of collision"
       if that works super!
@@ -82,25 +86,25 @@ export default class TodoRoute extends React.Component {
     https://stackoverflow.com/questions/8751020/how-to-get-a-pixels-x-y-coordinate-color-from-an-image
     http://jsfiddle.net/9SEMf/622/
 
-
-* use "Jade"?
 * What the hell does this do:
     let { params } = this.props;
     that is the wrapping in {}.
+
 * Learn about:
     * generator functions
     * async/await
     * "promises"
+
 * Inherit all props from parent ??
-* GIT with VSCode.
+
 * I have come to the conclusion that inline-block sucks and should,
     if possible, be changed to inline-flex.
+
 * Add "linting" to everything.
+
 * Har fortfarande problem med line-height som lägger till avstånd i y-led
     trots att jag använder inline-flex istället för inline-block.
-* npm install jquery
-  npm install Bootstrap
-    so that I can use "$"
+
 * Maybe TilesetLoader should have a prop "src".
     so that one can easily load files with it super independently/modular.
 
