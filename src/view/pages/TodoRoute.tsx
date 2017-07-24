@@ -29,7 +29,15 @@ export default class TodoRoute extends React.Component {
 
 = TODO =
 
-* Add gravity.
+* Fix:
+    (node) warning: possible EventEmitter memory leak detected.
+    11 listeners added. Use emitter.setMaxListeners() to increase limit.
+
+    when components unload has to "destruct" GameObjects !!!
+
+* gravity application should be moved into GameObject
+
+* elasticity should be moved into GameObject
 
 * Add so keys can add speed to GameObject.
 

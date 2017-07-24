@@ -2,13 +2,15 @@ import { Sprite16x16 } from "./Sprite16x16"
 import { PixelRGBA } from "./PixelRGBA"
 import { Position } from "./Position"
 import { CollisionMap } from "./CollisionMap"
-import { store } from "../stores/Store";
+import { store } from "../Flux/stores/Store";
 
 // This class symbolizes enemies, characters and other
 //   such things that move around, animate and collide in the game.
 export class GameObject {
 
-  constructor(){
+  constructor( { x=0, y=0, elasticity=0 } ){
+    this.position = new Position(x, y);
+    this.previousPosition = new Position(x, y);
     store.on("GRAVITY", this.applyGravity_withThisBound);
   }
 
@@ -25,11 +27,11 @@ export class GameObject {
 
   // This is the TOP-LEFT position of an object.
   //   That is, it's not the center or anything such as that.
-  private position : Position = new Position(32, 32);
+  private position : Position;
 
   // This stores a history of movements
   // TODO. This should be an array or list.
-  public previousPosition : Position = new Position(32, 32); // TODO. This should be taken from "position" at creation.
+  public previousPosition : Position;
 
   // TODO. These may be temporary because I don't know exactly how
   //  how I should implement this.
@@ -37,6 +39,30 @@ export class GameObject {
   width : number = 16;
 
   public speed : Position = new Position(7, 0); // TODO temporary default value.
+
+  // 0 => no bouncing
+  // 1 => full bouncing
+  // At collision 1-elasticityFactor of speed is lost.
+  public elasticity : number;
+  private virtualElasticity : number; // for Infinite Bounce Problem
+
+  private isOnGround : boolean; // TODO should this has a default value?
+
+  getVirtualElasticity() : number {
+    return this.elasticity;
+  }
+
+  // TODO If inAir then gravity should be applied
+  inAir() : boolean {
+    alert("not implemented!");
+    return !this.isOnGround;
+  }
+
+  // TODO If hasLanded then gravity should NOT be applied
+  hasLanded() : boolean {
+    alert("not implemented!");
+    return this.isOnGround;
+  }
 
   MoveAccordingToSpeed() : void {
     this.Move(this.speed.x, this.speed.y);

@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
-import { Sprite16x16 } from "../controller/Sprite16x16"
-import { Map } from "../controller/Map"
-import { CollisionMap } from "../controller/CollisionMap"
+import { Sprite16x16 } from "../../controller/Sprite16x16"
+import { Map } from "../../controller/Map"
+import { CollisionMap } from "../../controller/CollisionMap"
 import dispatcher from "../dispatchers/Dispatcher";
 
 class Store extends EventEmitter {
@@ -9,7 +9,6 @@ class Store extends EventEmitter {
   currentMap : Map = new Map(); // TODO this "might" be ugly. Storing global vars on a Store??
   currentCollisionMap : CollisionMap = new CollisionMap();
   gravityAccelerationInPixels : number = 0.2; // TODO. storing public variables like this looks ugly.
-  elasticityFactor : number = 0.85; // At collision 1-elasticityFactor of speed is lost.
 
   changeSelectedSprite(sprite : Sprite16x16){
     this.selectedSprite = sprite;

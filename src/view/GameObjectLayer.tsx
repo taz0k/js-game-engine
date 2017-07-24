@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Map } from "../controller/Map";
-import { store } from "../stores/Store";
+import { store } from "../Flux/stores/Store";
 import { GameObject } from "../controller/GameObject";
 import { Position } from "../controller/Position";
 import * as $ from "jquery";
-import * as Actions from "../actions/Actions"
+import * as Actions from "../Flux/actions/Actions"
 
 import "./styles/GameObjectLayer.sass"
 
@@ -28,7 +28,8 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     };
   }
 
-  gameObject : GameObject = new GameObject();
+  gameObject : GameObject = new GameObject({x: 32, y: 32, elasticity: 0.85});
+  player : GameObject = new GameObject({x: 100, y: 50});
 
   redrawMap(){
     //let map = store.currentMap;
@@ -156,8 +157,8 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
       }
 
       // Elasticity
-      this.gameObject.speed.x *= store.elasticityFactor;
-      this.gameObject.speed.y *= store.elasticityFactor;
+      this.gameObject.speed.x *= this.gameObject.elasticity;
+      this.gameObject.speed.y *= this.gameObject.elasticity;
     }
 
 
