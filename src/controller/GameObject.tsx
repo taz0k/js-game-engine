@@ -2,14 +2,26 @@ import { Sprite16x16 } from "./Sprite16x16"
 import { PixelRGBA } from "./PixelRGBA"
 import { Position } from "./Position"
 import { CollisionMap } from "./CollisionMap"
+import { store } from "../stores/Store";
 
 // This class symbolizes enemies, characters and other
 //   such things that move around, animate and collide in the game.
 export class GameObject {
 
   constructor(){
-    
+    store.on("GRAVITY", this.applyGravity_withThisBound);
   }
+
+  // JavaScript doesn't have destructors so I must call this manually !!!!
+  destructor(){
+    store.removeListener("change", this.applyGravity_withThisBound);
+  }
+
+  applyGravity(){
+    this.speed.y += store.gravityAccelerationInPixels;
+  }
+
+  applyGravity_withThisBound = this.applyGravity.bind(this); // TODO how is this done more elegantly?
 
   // This is the TOP-LEFT position of an object.
   //   That is, it's not the center or anything such as that.

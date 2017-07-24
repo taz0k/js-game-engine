@@ -4,6 +4,7 @@ import { store } from "../stores/Store";
 import { GameObject } from "../controller/GameObject";
 import { Position } from "../controller/Position";
 import * as $ from "jquery";
+import * as Actions from "../actions/Actions"
 
 import "./styles/GameObjectLayer.sass"
 
@@ -107,7 +108,18 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
   imageData_data : any = null;
   intervalTimer : any = null;
 
-  MoveGameObjectOneFrame(){
+  executeOneFrameOfTheGame(){
+    ///////////////////
+    // APPLY GRAVITY //
+    ///////////////////
+
+    Actions.applyGravity();
+
+
+    //////////////////
+    // MOVE OBJECTS //
+    //////////////////
+
     this.gameObject.MoveAccordingToSpeed();
 
     // check if collision
@@ -144,6 +156,11 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
       }
     }
 
+
+    //////////
+    // DRAW //
+    //////////
+
     this.redrawMap();
   }
 
@@ -151,7 +168,7 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     // TODO. start timer
     // if it has not already been started
     if(this.intervalTimer == null){
-      this.intervalTimer = setInterval(this.MoveGameObjectOneFrame.bind(this), 33);
+      this.intervalTimer = setInterval(this.executeOneFrameOfTheGame.bind(this), 33);
     }
 
 
