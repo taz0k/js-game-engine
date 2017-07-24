@@ -154,6 +154,10 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
           }
         }
       }
+
+      // Elasticity
+      this.gameObject.speed.x *= store.elasticityFactor;
+      this.gameObject.speed.y *= store.elasticityFactor;
     }
 
 

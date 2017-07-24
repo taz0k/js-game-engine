@@ -9,7 +9,7 @@ class Store extends EventEmitter {
   currentMap : Map = new Map(); // TODO this "might" be ugly. Storing global vars on a Store??
   currentCollisionMap : CollisionMap = new CollisionMap();
   gravityAccelerationInPixels : number = 0.2; // TODO. storing public variables like this looks ugly.
-  elasticityFactor : number = 0.98; // At collision 1-elasticityFactor of speed is lost.
+  elasticityFactor : number = 0.85; // At collision 1-elasticityFactor of speed is lost.
 
   changeSelectedSprite(sprite : Sprite16x16){
     this.selectedSprite = sprite;
