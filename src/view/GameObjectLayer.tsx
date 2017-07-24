@@ -109,13 +109,6 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
   intervalTimer : any = null;
 
   executeOneFrameOfTheGame(){
-    ///////////////////
-    // APPLY GRAVITY //
-    ///////////////////
-
-    Actions.applyGravity();
-
-
     //////////////////
     // MOVE OBJECTS //
     //////////////////
@@ -127,6 +120,9 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     let colmap = store.currentCollisionMap;
 
     let oldSpeed : Position = this.gameObject.speed.clone();
+
+    let collidedInYAxis = false; // for infinity bounce problem
+    let speedDown = (this.gameObject.speed.y > 0 ? true : false); // for infinity bounce problem
 
     if(this.gameObject.CollidesWithThisCollisionMap(colmap)){
       //revert, try to invert speed of x-axis and make a movement.
@@ -151,7 +147,11 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
 
           if(this.gameObject.CollidesWithThisCollisionMap(colmap)){
             alert("Stuck in wall :'(");
+          }else{
+            collidedInYAxis = true;
           }
+        }else{
+          collidedInYAxis = true;
         }
       }
 
@@ -161,11 +161,41 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     }
 
 
+    ///////////////////
+    // APPLY GRAVITY //
+    ///////////////////
+
+    Actions.applyGravity();
+
+    this.fixInfinityBounceProblem(collidedInYAxis, speedDown);
+
+
     //////////
     // DRAW //
     //////////
 
     this.redrawMap();
+  }
+
+  fixInfinityBounceProblem(collidedInYAxis: boolean, speedDown : boolean){
+    if(collidedInYAxis && speedDown){
+      let speed = Math.abs(this.gameObject.speed.y);
+
+      if(speed < 0.5){
+        console.log("<0.5");
+        this.gameObject.speed.y *= 0.0;
+        // TODO. Signal that this obj has "LANDED" !
+      }else if(speed < 1){
+        console.log("<1");
+        this.gameObject.speed.y *= 0.7;
+      }else if(speed < 2){
+        console.log("<2");
+        this.gameObject.speed.y *= 0.8;
+      }else if(speed < 3){
+        console.log("<3");
+        this.gameObject.speed.y *= 0.9;
+      }
+    }
   }
 
   domManipulationAfterRender(){
