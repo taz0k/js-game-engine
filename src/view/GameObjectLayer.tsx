@@ -205,7 +205,7 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     // TODO. start timer
     // if it has not already been started
     if(this.intervalTimer == null){
-      this.intervalTimer = setInterval(this.executeOneFrameOfTheGame.bind(this), 33);
+      this.intervalTimer = setInterval(this.executeOneFrameOfTheGame.bind(this), 330);
     }
 
 
