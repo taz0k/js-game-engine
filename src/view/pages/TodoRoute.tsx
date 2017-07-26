@@ -29,6 +29,9 @@ export default class TodoRoute extends React.Component {
 
 = TODO =
 
+* Should probably try to remove as much jQuery as possible.
+    I can insert functions are event-listeners in the HTML you know.
+
 * Fix:
     (node) warning: possible EventEmitter memory leak detected.
     11 listeners added. Use emitter.setMaxListeners() to increase limit.

@@ -218,15 +218,12 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
 
     let thisObject = this;
 
-    /*$('#gameObjectLayerCanvas').mousemove(function(e:any) {
-      if(e.which === 1){
-        //thisObject.drawSprite(e);
+    $('#gameObjectLayerCanvas').keydown(function(e:any) {
+      //if space then jump
+      if(e.key === " "){
+        Actions.playerJumped();
       }
     });
-
-    $('#gameObjectLayerCanvas').click(function(e:any) {
-      //thisObject.drawSprite(e);
-    });*/
   }
 
   componentDidMount(){
