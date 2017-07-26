@@ -29,27 +29,26 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     };
   }
 
-  gameObject : GameObject = new GameObject({x: 32, y: 32, elasticity: 0.85});
-  player : PlayerObject = new PlayerObject({x: 100, y: 50});
+  gameObjects : Array<GameObject> = [
+    new GameObject({x: 32, y: 32, elasticity: 0.85}),
+    new PlayerObject({x: 100, y: 50})
+  ];
+  gameObject : GameObject = this.gameObjects[0];
+  player : PlayerObject = this.gameObjects[1] as PlayerObject;
 
-  redrawMap(){
-    //let map = store.currentMap;
-
+  redrawGameObjects(){
     let s = this.state.scale;
 
     for(let x=0; x<256; x++){
       for(let y=0; y<240; y++){
         let colorValue : number;
-        if(this.gameObject.OccupiesThisPixel(x, y)){
+        if(this.gameObjects.some(
+          (go) => go.OccupiesThisPixel(x, y)
+        )){
           colorValue = 255; // draw pixels where the GameObject is as white.
         }else{
           colorValue = 0; // draw where it is not as transparent.
         }
-        /*let fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.a})`
-        this.context.fillStyle = fillStyle;
-        this.context.fillRect(x*s, y*s, 1*s, 1*s);*/
-
-        //let pixelPos = (x*s+y*256*Math.pow(s, 2))*4;
 
         for(let i_x=0; i_x<s; i_x++){
           for(let i_y=0; i_y<s; i_y++){
@@ -94,7 +93,7 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
 
     store.currentMap.drawSprite(spriteColumn, spriteRow, store.selectedSprite);
 
-    this.redrawMap();
+    this.redrawGameObjects();
 
     /*for(let x=0; x<16; x++){ // TODO. This should be extracted to a method.
       for(let y=0; y<16; y++){
@@ -176,7 +175,7 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     // DRAW //
     //////////
 
-    this.redrawMap();
+    this.redrawGameObjects();
   }
 
   fixInfinityBounceProblem(collidedInYAxis: boolean, speedDown : boolean){
@@ -215,7 +214,7 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     this.imageData = this.context.createImageData(256*this.state.scale, 240*this.state.scale); // only do this once per page
     this.imageData_data  = this.imageData.data;                        // only do this once per page
 
-    this.redrawMap();
+    this.redrawGameObjects();
 
     let thisObject = this;
 
