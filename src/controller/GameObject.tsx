@@ -10,6 +10,7 @@ export class GameObject {
 
   constructor( { x=0, y=0, elasticity=0 } ){
     this.position = new Position(x, y);
+    this.elasticity=elasticity;
     this.previousPosition = new Position(x, y);
     store.on("GRAVITY", this.applyGravity_withThisBound);
   }
