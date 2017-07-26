@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Map } from "../controller/Map";
-import { store } from "../stores/Store";
+import { store } from "../Flux/stores/Store";
 import * as $ from "jquery";
 
 import "./styles/GameWindow.sass"

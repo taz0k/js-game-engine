@@ -4,7 +4,7 @@ import * as ReactDOM from "react-dom";
 import "./styles/Tile.sass"
 import { Sprite16x16 } from "../../controller/Sprite16x16"
 
-import * as Actions from "../../actions/Actions"
+import * as Actions from "../../Flux/actions/Actions"
 
 interface TileProps extends React.Props<any> {
   sprite: Sprite16x16;

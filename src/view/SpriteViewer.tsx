@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Sprite16x16 } from "../controller/Sprite16x16";
-import { store } from "../stores/Store";
+import { store } from "../Flux/stores/Store";
 
 import "./styles/SpriteViewer.sass"
 

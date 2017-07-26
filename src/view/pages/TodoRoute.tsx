@@ -1,9 +1,12 @@
 import * as React from "react";
 
-export default class TODO extends React.Component {
+export default class TodoRoute extends React.Component {
   render() {
     return (
-      <pre>{`
+      <pre style={{
+        flex: '1',
+        overflowY: 'scroll'
+      }}>{`
 = Good to know =
 
 == git ==
@@ -26,13 +29,34 @@ export default class TODO extends React.Component {
 
 = TODO =
 
-* Solve this error:
-    CollisionMap.tsx:64 Uncaught TypeError: this.context.putImageData is not a function
-    at CollisionMapComponent.redrawMap (CollisionMap.tsx:64)
-    at CollisionMapComponent.drawSprite (CollisionMap.tsx:92)
-    at HTMLCanvasElement.<anonymous> (CollisionMap.tsx:126)
-    at HTMLCanvasElement.dispatch (jquery.js:5206)
-    at HTMLCanvasElement.elemData.handle (jquery.js:5014)
+* Fix:
+    (node) warning: possible EventEmitter memory leak detected.
+    11 listeners added. Use emitter.setMaxListeners() to increase limit.
+
+    when components unload has to "destruct" GameObjects !!!
+
+* gravity application should be moved into GameObject
+
+* elasticity should be moved into GameObject
+
+* Add so keys can add speed to GameObject.
+
+* When GameObjects collides, it should test to invert the speed
+    of first the x-axis and try if this direction will get it "out of collision"
+      if that works super!
+    else try inverst speed of y-axis -||-
+    else invert both axis -||-
+
+* Maybe GameObjects should keep a history of where they wer the last frames.
+    If they get stuck in wall the simply move back until they get un-stuck.
+
+* "new-frame" event
+    that stuff including GameObjects can subscribe to.
+
+* I now have two Canvas over each other.
+    I must change that to one canvas.
+    So that it just renders two passes or whatever.
+    Should be doable.
 
 * Possible optimization improvements:
     * Each Map has a 2d array of POINTERS to Sprite objects.
@@ -70,25 +94,25 @@ export default class TODO extends React.Component {
     https://stackoverflow.com/questions/8751020/how-to-get-a-pixels-x-y-coordinate-color-from-an-image
     http://jsfiddle.net/9SEMf/622/
 
-
-* use "Jade"?
 * What the hell does this do:
     let { params } = this.props;
     that is the wrapping in {}.
+
 * Learn about:
     * generator functions
     * async/await
     * "promises"
+
 * Inherit all props from parent ??
-* GIT with VSCode.
+
 * I have come to the conclusion that inline-block sucks and should,
     if possible, be changed to inline-flex.
+
 * Add "linting" to everything.
+
 * Har fortfarande problem med line-height som lägger till avstånd i y-led
     trots att jag använder inline-flex istället för inline-block.
-* npm install jquery
-  npm install Bootstrap
-    so that I can use "$"
+
 * Maybe TilesetLoader should have a prop "src".
     so that one can easily load files with it super independently/modular.
 

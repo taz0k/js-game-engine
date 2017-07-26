@@ -16,7 +16,10 @@ export default class Menu extends React.Component<{}, {}> {
           <Link to="collisions">Draw collision</Link>
         </div>
         <div className="menuItem isLink">
-          Demo (studsboll)
+          <Link to="demo">Demo</Link>
+        </div>
+        <div className="menuItem isLink">
+          <Link to="todo">Todo</Link>
         </div>
 
         {Array.apply(0, Array(15)).map((x:any, i:any) =>
