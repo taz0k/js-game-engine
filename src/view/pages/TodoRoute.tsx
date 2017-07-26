@@ -29,6 +29,12 @@ export default class TodoRoute extends React.Component {
 
 = TODO =
 
+* NaN is bullshit in JavaScript:
+    NaN === NaN;        // false
+    Number.NaN === NaN; // false
+    isNaN(NaN);         // true
+    isNaN(Number.NaN);  // true
+
 * Fix:
     (node) warning: possible EventEmitter memory leak detected.
     11 listeners added. Use emitter.setMaxListeners() to increase limit.

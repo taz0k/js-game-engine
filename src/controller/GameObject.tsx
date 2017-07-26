@@ -10,6 +10,7 @@ export class GameObject {
 
   constructor( { x=0, y=0, elasticity=0 } ){
     this.position = new Position(x, y);
+    this.elasticity = elasticity;
     this.previousPosition = new Position(x, y);
     store.on("GRAVITY", this.applyGravity_withThisBound);
   }
@@ -17,6 +18,17 @@ export class GameObject {
   // JavaScript doesn't have destructors so I must call this manually !!!!
   destructor(){
     store.removeListener("change", this.applyGravity_withThisBound);
+  }
+
+  set position(pos : Position) {
+    if(isNaN(pos.x) || isNaN(pos.y)){
+      throw("x === NaN || y === NaN");
+    }
+    this._position = pos;
+  }
+
+  get position() : Position {
+    return this._position;
   }
 
   applyGravity(){
@@ -27,7 +39,7 @@ export class GameObject {
 
   // This is the TOP-LEFT position of an object.
   //   That is, it's not the center or anything such as that.
-  private position : Position;
+  private _position : Position;
 
   // This stores a history of movements
   // TODO. This should be an array or list.
@@ -69,6 +81,9 @@ export class GameObject {
   }
 
   Move(x : number, y : number) : void {
+    if(isNaN(x) || isNaN(y)){
+      throw("x === NaN || y === NaN");
+    }
     this.previousPosition = this.position.clone(); // TODO. Do I have to use .clone() here ???
 
     this.position.x += x;
