@@ -33,7 +33,7 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     new GameObject({x: 32, y: 32, elasticity: 0.85}),
     new PlayerObject({x: 100, y: 50})
   ];
-  gameObject : GameObject = this.gameObjects[0];
+  _gameObject : GameObject = this.gameObjects[0];
   player : PlayerObject = this.gameObjects[1] as PlayerObject;
 
   redrawGameObjects(){
@@ -110,57 +110,6 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
   intervalTimer : any = null;
 
   executeOneFrameOfTheGame(){
-    //////////////////
-    // MOVE OBJECTS //
-    //////////////////
-
-    this.gameObject.MoveAccordingToSpeed();
-
-    // check if collision
-
-    let colmap = store.currentCollisionMap;
-
-    let oldSpeed : Position = this.gameObject.speed.clone();
-
-    let collidedInYAxis = false; // for infinity bounce problem
-    let speedDown = (this.gameObject.speed.y > 0 ? true : false); // for infinity bounce problem
-
-    if(this.gameObject.CollidesWithThisCollisionMap(colmap)){
-      //revert, try to invert speed of x-axis and make a movement.
-      this.gameObject.RevertMovement();
-      this.gameObject.speed.x = -oldSpeed.x;
-      this.gameObject.speed.y = oldSpeed.y;
-      this.gameObject.MoveAccordingToSpeed();
-
-      if(this.gameObject.CollidesWithThisCollisionMap(colmap)){
-        //revert, try to invert y-speed, then try to move again.
-        this.gameObject.RevertMovement();
-        this.gameObject.speed.x = oldSpeed.x;
-        this.gameObject.speed.y = -oldSpeed.y;
-        this.gameObject.MoveAccordingToSpeed();
-
-        if(this.gameObject.CollidesWithThisCollisionMap(colmap)){
-          //revert, try to invert x- and y-speed, then try to move again.
-          this.gameObject.RevertMovement();
-          this.gameObject.speed.x = -oldSpeed.x;
-          this.gameObject.speed.y = -oldSpeed.y;
-          this.gameObject.MoveAccordingToSpeed();
-
-          if(this.gameObject.CollidesWithThisCollisionMap(colmap)){
-            alert("Stuck in wall :'(");
-          }else{
-            collidedInYAxis = true;
-          }
-        }else{
-          collidedInYAxis = true;
-        }
-      }
-
-      // Elasticity
-      this.gameObject.speed.x *= this.gameObject.elasticity;
-      this.gameObject.speed.y *= this.gameObject.elasticity;
-    }
-
 
     ///////////////////
     // APPLY GRAVITY //
@@ -168,8 +117,61 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
 
     Actions.applyGravity();
 
-    this.fixInfinityBounceProblem(collidedInYAxis, speedDown);
 
+    this.gameObjects.forEach(gameObject => {
+      //////////////////
+      // MOVE OBJECTS //
+      //////////////////
+
+      gameObject.MoveAccordingToSpeed();
+
+      // check if collision
+
+      let colmap = store.currentCollisionMap;
+
+      let oldSpeed : Position = gameObject.speed.clone();
+
+      let collidedInYAxis = false; // for infinity bounce problem
+      let speedDown = (gameObject.speed.y > 0 ? true : false); // for infinity bounce problem
+
+      if(gameObject.CollidesWithThisCollisionMap(colmap)){
+        //revert, try to invert speed of x-axis and make a movement.
+        gameObject.RevertMovement();
+        gameObject.speed.x = -oldSpeed.x;
+        gameObject.speed.y = oldSpeed.y;
+        gameObject.MoveAccordingToSpeed();
+
+        if(gameObject.CollidesWithThisCollisionMap(colmap)){
+          //revert, try to invert y-speed, then try to move again.
+          gameObject.RevertMovement();
+          gameObject.speed.x = oldSpeed.x;
+          gameObject.speed.y = -oldSpeed.y;
+          gameObject.MoveAccordingToSpeed();
+
+          if(gameObject.CollidesWithThisCollisionMap(colmap)){
+            //revert, try to invert x- and y-speed, then try to move again.
+            gameObject.RevertMovement();
+            gameObject.speed.x = -oldSpeed.x;
+            gameObject.speed.y = -oldSpeed.y;
+            gameObject.MoveAccordingToSpeed();
+
+            if(gameObject.CollidesWithThisCollisionMap(colmap)){
+              alert("Stuck in wall :'(");
+            }else{
+              collidedInYAxis = true;
+            }
+          }else{
+            collidedInYAxis = true;
+          }
+        }
+
+        // Elasticity
+        gameObject.speed.x *= gameObject.elasticity;
+        gameObject.speed.y *= gameObject.elasticity;
+      }
+
+      this.fixInfinityBounceProblem(gameObject, collidedInYAxis, speedDown);
+    });
 
     //////////
     // DRAW //
@@ -178,23 +180,23 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     this.redrawGameObjects();
   }
 
-  fixInfinityBounceProblem(collidedInYAxis: boolean, speedDown : boolean){
+  fixInfinityBounceProblem(gameObject : GameObject, collidedInYAxis: boolean, speedDown : boolean){
     if(collidedInYAxis && speedDown){
-      let speed = Math.abs(this.gameObject.speed.y);
+      let speed = Math.abs(gameObject.speed.y);
 
       if(speed < 0.5){
         console.log("<0.5");
-        this.gameObject.speed.y *= 0.0;
+        gameObject.speed.y *= 0.0;
         // TODO. Signal that this obj has "LANDED" !
       }else if(speed < 1){
         console.log("<1");
-        this.gameObject.speed.y *= 0.7;
+        gameObject.speed.y *= 0.7;
       }else if(speed < 2){
         console.log("<2");
-        this.gameObject.speed.y *= 0.8;
+        gameObject.speed.y *= 0.8;
       }else if(speed < 3){
         console.log("<3");
-        this.gameObject.speed.y *= 0.9;
+        gameObject.speed.y *= 0.9;
       }
     }
   }
@@ -238,8 +240,9 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     this.intervalTimer = null;
 
     // Call the descructors of this objects GameObjects.
-    this.gameObject.destructor();
-    this.player.destructor();
+    this.gameObjects.forEach(go => {
+      go.destructor();
+    });
   }
 
   componentDidUpdate(){

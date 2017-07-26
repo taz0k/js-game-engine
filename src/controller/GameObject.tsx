@@ -17,7 +17,7 @@ export class GameObject {
 
   // JavaScript doesn't have destructors so I must call this manually !!!!
   destructor(){
-    store.removeListener("change", this.applyGravity_withThisBound);
+    store.removeListener("GRAVITY", this.applyGravity_withThisBound);
   }
 
   applyGravity(){
