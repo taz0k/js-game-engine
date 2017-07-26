@@ -235,10 +235,14 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
   }
 
   componentWillUnmount(){
-    // TODO stop timer
+    // Stop timer
     // 
     clearInterval(this.intervalTimer);
     this.intervalTimer = null;
+
+    // Call the descructors of this objects GameObjects.
+    this.gameObject.destructor();
+    this.player.destructor();
   }
 
   componentDidUpdate(){
