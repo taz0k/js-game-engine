@@ -2,6 +2,7 @@ import * as React from "react";
 import { Map } from "../controller/Map";
 import { store } from "../Flux/stores/Store";
 import { GameObject } from "../controller/GameObject";
+import { PlayerObject } from "../controller/PlayerObject";
 import { Position } from "../controller/Position";
 import * as $ from "jquery";
 import * as Actions from "../Flux/actions/Actions"
@@ -29,7 +30,7 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
   }
 
   gameObject : GameObject = new GameObject({x: 32, y: 32, elasticity: 0.85});
-  player : GameObject = new GameObject({x: 100, y: 50});
+  player : PlayerObject = new PlayerObject({x: 100, y: 50});
 
   redrawMap(){
     //let map = store.currentMap;
