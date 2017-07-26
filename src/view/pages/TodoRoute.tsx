@@ -29,6 +29,12 @@ export default class TodoRoute extends React.Component {
 
 = TODO =
 
+* NaN is bullshit in JavaScript:
+    NaN === NaN;        // false
+    Number.NaN === NaN; // false
+    isNaN(NaN);         // true
+    isNaN(Number.NaN); // true
+
 * Should probably try to remove as much jQuery as possible.
     I can insert functions are event-listeners in the HTML you know.
 

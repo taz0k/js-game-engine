@@ -70,6 +70,10 @@ export class GameObject {
   }
 
   Move(x : number, y : number) : void {
+    if(isNaN(x) || isNaN(y)){
+      throw("isNaN(x) || isNaN(y)");
+    }
+
     this.previousPosition = this.position.clone(); // TODO. Do I have to use .clone() here ???
 
     this.position.x += x;
