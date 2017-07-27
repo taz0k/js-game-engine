@@ -8,12 +8,17 @@ import { store } from "../Flux/stores/Store";
 //   such things that move around, animate and collide in the game.
 export class GameObject {
 
-  constructor( { x=0, y=0, elasticity=0 } ){
+  constructor( { x=0, y=0, elasticity=0, slipperinessX=1, slipperinessY=1 } ){
     this.position = new Position(x, y);
-    this.elasticity=elasticity;
+    this.elasticity = elasticity;
+    this.slipperinessX = slipperinessX;
+    this.slipperinessY = slipperinessY;
     this.previousPosition = new Position(x, y);
     store.on("GRAVITY", this.applyGravity_withThisBound);
   }
+
+  slipperinessX : number;
+  slipperinessY: number;
 
   // JavaScript doesn't have destructors so I must call this manually !!!!
   destructor(){

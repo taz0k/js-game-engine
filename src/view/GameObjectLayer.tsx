@@ -30,8 +30,8 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
   }
 
   gameObjects : Array<GameObject> = [
-    new GameObject({x: 32, y: 32, elasticity: 0.85}),
-    new PlayerObject({x: 100, y: 50})
+    new GameObject({x: 32, y: 32, elasticity: 0.85, slipperinessX: 0.85, slipperinessY: 0.85}),
+    new PlayerObject({x: 100, y: 50, slipperinessX: 0, slipperinessY: 1})
   ];
   _gameObject : GameObject = this.gameObjects[0];
   player : PlayerObject = this.gameObjects[1] as PlayerObject;
@@ -133,6 +133,9 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
 
       let collidedInYAxis = false; // for infinity bounce problem
       let speedDown = (gameObject.speed.y > 0 ? true : false); // for infinity bounce problem
+      
+      let speedFactorX;
+      let speedFactorY;
 
       if(gameObject.CollidesWithThisCollisionMap(colmap)){
         //revert, try to invert speed of x-axis and make a movement.
@@ -159,15 +162,32 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
               alert("Stuck in wall :'(");
             }else{
               collidedInYAxis = true;
+              speedFactorX = gameObject.elasticity;
+              speedFactorY = gameObject.elasticity;
             }
           }else{
             collidedInYAxis = true;
+            speedFactorY = gameObject.elasticity;
+
+            speedFactorX = gameObject.slipperinessX;
           }
+        }else{
+          speedFactorX = gameObject.elasticity;
+
+          speedFactorY = gameObject.slipperinessY;
         }
 
+        // Revert Move then apply some stuff, then do the Move again but 100 % correctly
+        gameObject.RevertMovement();
+
         // Elasticity
-        gameObject.speed.x *= gameObject.elasticity;
-        gameObject.speed.y *= gameObject.elasticity;
+        gameObject.speed.x *= speedFactorX; // TODO. This only works for specifically "bouncing" objects.
+        gameObject.speed.y *= speedFactorY;
+
+        // So do the move that we reverted again.
+        //   
+        gameObject.MoveAccordingToSpeed();
+
       }
 
       this.fixInfinityBounceProblem(gameObject, collidedInYAxis, speedDown);
@@ -205,7 +225,7 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     // TODO. start timer
     // if it has not already been started
     if(this.intervalTimer == null){
-      this.intervalTimer = setInterval(this.executeOneFrameOfTheGame.bind(this), 330);
+      this.intervalTimer = setInterval(this.executeOneFrameOfTheGame.bind(this), 33);
     }
 
 

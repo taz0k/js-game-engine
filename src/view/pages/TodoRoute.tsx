@@ -11,6 +11,9 @@ export default class TodoRoute extends React.Component {
 
 == git ==
 
+* go to specific commit with:
+    git checkout commit_hash
+
 * installed "git-upload" npm package globally
     now I can stage, commit, and push at once with:
       gitu "commit message"
@@ -28,6 +31,9 @@ export default class TodoRoute extends React.Component {
     removed from local repository.
 
 = TODO =
+
+* A PlayerObject usually has slipperinessY = 1 and slipperinessX = 0.
+    For "ice physics" slipperinessY = 1 and slipperinessX > 0.
 
 * NaN is bullshit in JavaScript:
     NaN === NaN;        // false
