@@ -12,6 +12,22 @@ export class CollisionMap {
         this.collisionCellColumns[x][y] = false; // init as not collision.
       }
     }
+
+    this.createEdges();
+  }
+
+  // I don't think that this should be used later.
+  private createEdges() : void {
+    for(let x=0; x<this.width; x++){
+      for(let y=0; y<this.height; y++){
+        if(
+          x==0 || x==this.width-1 ||
+          y==0 || y==this.height-1
+        ){
+          this.collisionCellColumns[x][y] = true;
+        }
+      }
+    }
   }
 
   height = 15; // 240/16;
