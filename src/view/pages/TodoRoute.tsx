@@ -32,6 +32,9 @@ export default class TodoRoute extends React.Component {
 
 = TODO =
 
+* Error msg
+    WARNING: Too many active WebGL contexts. Oldest context will be lost.
+
 * A PlayerObject usually has slipperinessY = 1 and slipperinessX = 0.
     For "ice physics" slipperinessY = 1 and slipperinessX > 0.
 
