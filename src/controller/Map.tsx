@@ -4,20 +4,19 @@ import { PixelRGBA } from "./PixelRGBA"
 export class Map {
 
   constructor(){
-    let height = 15; // 240/16;
-    let width = 16; // 256/16;
+    this.spriteColumns = new Array(this.width);
 
-    this.spriteColumns = new Array(width);
-
-    for(let x=0; x<width; x++){
-      this.spriteColumns[x] = new Array(width);
-      for(let y=0; y<height; y++){
+    for(let x=0; x<this.width; x++){
+      this.spriteColumns[x] = new Array(this.width);
+      for(let y=0; y<this.height; y++){
         this.spriteColumns[x][y] = new Sprite16x16();
       }
     }
   }
 
-  spriteColumns:any;
+  height = 15; // 240/16;
+  width = 16; // 256/16;
+  spriteColumns : any;
 
   getPixel(x:number, y:number) : PixelRGBA{
     var column = Math.floor(x/16);
@@ -35,12 +34,15 @@ export class Map {
     alert("not implemented");
   }
 
+  // Makes sure that we try to set/unset within the bounds.
+  private isWithin(spriteColumn : number, spriteRow : number) : boolean {
+    return spriteColumn < this.width  && spriteColumn >= 0
+        && spriteRow    < this.height && spriteRow    >= 0;
+  }
+
   drawSprite(spriteColumn : number, spriteRow : number, sprite : Sprite16x16){
-    //try {
+    if(this.isWithin(spriteColumn, spriteRow)){
       this.spriteColumns[spriteColumn][spriteRow] = sprite; // TODO should I make sure to .clone() here??
-    //}
-    //catch(err) {
-      //alert(err.message);
-    //}
+    }
   }
 }
