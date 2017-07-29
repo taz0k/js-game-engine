@@ -15,7 +15,7 @@ export class GameObject {
     this.slipperinessY = slipperinessY;
     this.previousPosition = new Position(x, y);
     store.on("GRAVITY", this.applyGravity_withThisBound);
-    console.log(`store.listenerCount("GRAVITY")=${store.listenerCount("GRAVITY")}`);
+    //console.log(`store.listenerCount("GRAVITY")=${store.listenerCount("GRAVITY")}`);
   }
 
   slipperinessX : number;

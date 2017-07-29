@@ -14,7 +14,7 @@ export class PlayerObject extends GameObject {
 
     // Subscribe to PLAYED_JUMPED
     store.on("PLAYED_JUMPED", this.doJump_withThisBound);
-    console.log(`store.listenerCount("PLAYED_JUMPED")=${store.listenerCount("PLAYED_JUMPED")}`);
+    //console.log(`store.listenerCount("PLAYED_JUMPED")=${store.listenerCount("PLAYED_JUMPED")}`);
   }
 
   destructor(){
