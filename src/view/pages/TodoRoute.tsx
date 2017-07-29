@@ -34,10 +34,6 @@ export default class TodoRoute extends React.Component {
 
 * Nothing should be selectable/markable.
 
-* As default have collision drawn out on the outermost cells.
-    This is because I want no stupid errrors to show up as default
-    when the GameObject:s bounce out of bounds.
-
 * Error msg
     WARNING: Too many active WebGL contexts. Oldest context will be lost.
 
