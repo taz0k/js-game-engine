@@ -4,18 +4,18 @@ import { PixelRGBA } from "./PixelRGBA"
 export class CollisionMap {
 
   constructor(){
-    let height = 15; // 240/16;
-    let width = 16; // 256/16;
+    this.collisionCellColumns = new Array(this.width);
 
-    this.collisionCellColumns = new Array(width);
-
-    for(let x=0; x<width; x++){
-      this.collisionCellColumns[x] = new Array(width);
-      for(let y=0; y<height; y++){
+    for(let x=0; x<this.width; x++){
+      this.collisionCellColumns[x] = new Array(this.width);
+      for(let y=0; y<this.height; y++){
         this.collisionCellColumns[x][y] = false; // init as not collision.
       }
     }
   }
+
+  height = 15; // 240/16;
+  width = 16; // 256/16;
 
   collisionCellColumns:any;
 
@@ -30,20 +30,20 @@ export class CollisionMap {
   }
 
   setCollisionOnCell(spriteColumn : number, spriteRow : number){
-    try {
+    if(this.isWithin(spriteColumn, spriteRow)){
       this.collisionCellColumns[spriteColumn][spriteRow] = true; // TODO should I make sure to .clone() here??
-    }
-    catch(err) {
-      alert(err.message);
     }
   }
 
+  // Makes sure that we try to set/unset within the bounds.
+  private isWithin(spriteColumn : number, spriteRow : number) : boolean {
+    return spriteColumn < this.width  && spriteColumn >= 0
+        && spriteRow    < this.height && spriteRow    >= 0;
+  }
+
   unsetCollisionOnCell(spriteColumn : number, spriteRow : number){
-    try {
+    if(this.isWithin(spriteColumn, spriteRow)){
       this.collisionCellColumns[spriteColumn][spriteRow] = false; // TODO should I make sure to .clone() here??
-    }
-    catch(err) {
-      alert(err.message);
     }
   }
 }
