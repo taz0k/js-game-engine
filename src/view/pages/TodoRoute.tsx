@@ -9,6 +9,16 @@ export default class TodoRoute extends React.Component {
       }}>{`
 = Good to know =
 
+== Useful links ==
+
+* Technical data about MM2:
+    http://tasvideos.org/GameResources/NES/Rockman/Data.html
+
+* Mega Man Js:
+    git:  https://github.com/pomle/megamanjs
+    blog: https://medium.com/recreating-megaman-2-using-js-webgl
+
+
 == git ==
 
 * go to specific commit with:
@@ -31,6 +41,16 @@ export default class TodoRoute extends React.Component {
     removed from local repository.
 
 = TODO =
+
+* Have an FPS-counter somewhere.
+
+* Remove my piece of crap "setInterval" and run the game at unlimited speed.
+    Have all units be "pixels per second"
+    and NOT, as now, pixels per frame!!
+
+* Optimize. Every Sprite can be a canvas (is that really optimized? can it be something else?)
+    and that canvas should then be drawn whereever that Sprite exists
+    with Canvas.drawImage(spriteCanvas, xpos, ypos)
 
 * Nothing should be selectable/markable.
 

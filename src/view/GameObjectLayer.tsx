@@ -244,6 +244,10 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
       //if space then jump
       if(e.key === " "){
         Actions.playerJumped();
+      }else if(e.which === 37){ // left arrow
+        Actions.playerLeft();
+      }else if(e.which === 39){ // right arrow
+        Actions.playerRight();
       }
     });
   }

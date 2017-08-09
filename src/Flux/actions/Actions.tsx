@@ -30,3 +30,17 @@ export function applyGravity(){
     type: "GRAVITY"
   });
 }
+
+// 
+export function playerLeft(){
+  dispatcher.dispatch({
+    type: "PLAYER_LEFT"
+  });
+}
+
+//
+export function playerRight(){
+  dispatcher.dispatch({
+    type: "PLAYER_RIGHT"
+  });
+}
