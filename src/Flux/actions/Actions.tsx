@@ -44,3 +44,10 @@ export function playerRight(){
     type: "PLAYER_RIGHT"
   });
 }
+
+//
+export function frameWasDrawn(){
+  dispatcher.dispatch({
+    type: "FRAME_WAS_DRAWN"
+  });
+}

@@ -17,15 +17,15 @@ class Store extends EventEmitter {
   }
 
   playerJumped(){
-    
-
     this.emit("PLAYER_JUMPED");
   }
 
   gravity(){
-    
-
     this.emit("GRAVITY");
+  }
+
+  frameWasDrawn(){
+    this.emit("FRAME_WAS_DRAWN");
   }
 
   handleActions(action:any){
@@ -35,6 +35,8 @@ class Store extends EventEmitter {
       this.playerJumped();
     }else if(action.type === "GRAVITY"){
       this.gravity();
+    }else if(action.type === "FRAME_WAS_DRAWN"){
+      this.frameWasDrawn();
     }else{
       alert(`Unknown event.type: ${action.type}`);
     }

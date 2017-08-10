@@ -42,6 +42,11 @@ export default class TodoRoute extends React.Component {
 
 = TODO =
 
+* FpsCounter should listen to FRAME_WAS_DRAWN.
+* FRAME_WAS_DRAWN event should be triggered when frame has been drawn.
+
+* Remove from Demo "Show grid" "Load map" "Fill map with sprite".
+
 * Have an FPS-counter somewhere.
 
 * Remove my piece of crap "setInterval" and run the game at unlimited speed.

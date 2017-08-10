@@ -65,10 +65,13 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
       }
     }
 
-    this.context.putImageData( this.imageData, 0, 0 );
-
     // draw everything to a giant imageData.data
     //   then draw it all
+    this.context.putImageData( this.imageData, 0, 0 );
+
+    // register that we have drawn a frame
+    Actions.frameWasDrawn();
+    
   }
 
   drawSprite(e : any){
