@@ -281,9 +281,6 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     return (
       <div className="gameObjectLayerContainer">
         <canvas id="gameObjectLayerCanvas" className="gameObjectLayerCanvas" width={256*this.state.scale} height={240*this.state.scale}></canvas>
-        <button>Show grid</button>
-        <button>Load map</button>
-        <button>Fill map with sprite</button>
       </div>
     );
   }
