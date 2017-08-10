@@ -28,11 +28,23 @@ class Store extends EventEmitter {
     this.emit("FRAME_WAS_DRAWN");
   }
 
+  playerRight(){
+    this.emit("PLAYER_RIGHT");
+  }
+
+  playerLeft(){
+    this.emit("PLAYER_LEFT");
+  }
+
   handleActions(action:any){
     if(action.type === "CHANGED_SELECTED_SPRITE"){
       this.changeSelectedSprite(action.sprite);
     }else if(action.type === "PLAYER_JUMPED"){
       this.playerJumped();
+    }else if(action.type === "PLAYER_LEFT"){
+      this.playerLeft();
+    }else if(action.type === "PLAYER_RIGHT"){
+      this.playerRight();
     }else if(action.type === "GRAVITY"){
       this.gravity();
     }else if(action.type === "FRAME_WAS_DRAWN"){

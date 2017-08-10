@@ -13,7 +13,9 @@ export class PlayerObject extends GameObject {
     super(args); // pass the args to GameObject's constructor.
 
     // Subscribe to PLAYED_JUMPED
-    store.on("PLAYED_JUMPED", this.doJump_withThisBound);
+    store.on("PLAYER_JUMPED", this.doJump_withThisBound);
+    store.on("PLAYER_LEFT", this.doGoLeft_withThisBound);
+    store.on("PLAYER_RIGHT", this.doGoRight_withThisBound);
     //console.log(`store.listenerCount("PLAYED_JUMPED")=${store.listenerCount("PLAYED_JUMPED")}`);
   }
 
@@ -23,10 +25,17 @@ export class PlayerObject extends GameObject {
   }
 
   doJump() : void {
-    
-
     this.speed.y -= 2;
   }
-
   doJump_withThisBound = this.doJump.bind(this);
+
+  doGoLeft() : void {
+    this.speed.y -= 2;
+  }
+  doGoLeft_withThisBound = this.doGoLeft.bind(this);
+
+  doGoRight() : void {
+    this.speed.y -= 2;
+  }
+  doGoRight_withThisBound = this.doGoRight.bind(this);
 }

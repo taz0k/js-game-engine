@@ -243,7 +243,7 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
 
     let thisObject = this;
 
-    $('#gameObjectLayerCanvas').keydown(function(e:any) {
+    $('body').keydown(function(e:any) {
       //if space then jump
       if(e.key === " "){
         Actions.playerJumped();
