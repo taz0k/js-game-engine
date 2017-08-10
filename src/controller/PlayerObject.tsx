@@ -30,12 +30,12 @@ export class PlayerObject extends GameObject {
   doJump_withThisBound = this.doJump.bind(this);
 
   doGoLeft() : void {
-    this.speed.y -= 2;
+    this.speed.x -= 2;
   }
   doGoLeft_withThisBound = this.doGoLeft.bind(this);
 
   doGoRight() : void {
-    this.speed.y -= 2;
+    this.speed.x += 2;
   }
   doGoRight_withThisBound = this.doGoRight.bind(this);
 }
