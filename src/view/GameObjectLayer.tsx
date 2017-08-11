@@ -39,7 +39,7 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
   redrawGameObjects(){
     let s = this.state.scale;
 
-    for(let x=0; x<256; x++){
+    /*for(let x=0; x<256; x++){
       for(let y=0; y<240; y++){
         let colorValue : number;
         if(this.gameObjects.some(
@@ -63,11 +63,17 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
           }
         }
       }
-    }
+    }*/
+
+    this.context.clearRect(0, 0, 256*s, 240*s);
+
+    this.gameObjects.forEach(go => {
+      go.drawMyself(this.context, this.state.scale);
+    });
 
     // draw everything to a giant imageData.data
     //   then draw it all
-    this.context.putImageData( this.imageData, 0, 0 );
+    //this.context.putImageData( this.imageData, 0, 0 );
 
     // register that we have drawn a frame
     Actions.frameWasDrawn();
@@ -228,12 +234,12 @@ export default class GameObjectLayer extends React.Component<{}, GameObjectLayer
     // TODO. start timer
     // if it has not already been started
     if(this.intervalTimer == null){
-      this.intervalTimer = setInterval(this.executeOneFrameOfTheGame.bind(this), 33);
+      this.intervalTimer = setInterval(this.executeOneFrameOfTheGame.bind(this), 0);
     }
 
 
     let canvas:any = document.getElementById("gameObjectLayerCanvas");
-    canvas = WebGL2DScreen(canvas); // this line enables WebGL. Remove it to go back to normal Canvas.
+    //canvas = WebGL2DScreen(canvas); // this line enables WebGL. Remove it to go back to normal Canvas.
     this.context = canvas.getContext("2d");
 
     this.imageData = this.context.createImageData(256*this.state.scale, 240*this.state.scale); // only do this once per page

@@ -100,7 +100,7 @@ export default class CollisionMapComponent extends React.Component<{}, Collision
 
   domManipulationAfterRender(){
     let canvas:any = document.getElementById("collisionMapCanvas");
-    canvas = WebGL2DScreen(canvas); // this line enables WebGL. Remove it to go back to normal Canvas.
+    //canvas = WebGL2DScreen(canvas); // this line enables WebGL. Remove it to go back to normal Canvas.
     this.context = canvas.getContext("2d");
 
     this.imageData = this.context.createImageData(256*this.state.scale, 240*this.state.scale); // only do this once per page

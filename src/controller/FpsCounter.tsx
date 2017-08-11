@@ -2,7 +2,7 @@ import { store } from "../Flux/stores/Store";
 
 export class FpsCounter {
 
-  private framesToAverageOut : number = 10;
+  private framesToAverageOut : number = 30;
   private elementToDrawFpsOn : any; //TODO. should not be any
   private millisPassedSinceLastFpsDrawn : number = 0;
   private millisWasWhatLastTime : number = 0;

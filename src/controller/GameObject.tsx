@@ -112,4 +112,9 @@ export class GameObject {
         && y < this.position.y + this.height;
   }
 
+  drawMyself(context : CanvasRenderingContext2D, scale : number){ // TODO remove "scale".
+    context.fillStyle = "rgb(255, 255, 255)";
+    context.fillRect(this.position.x * scale, this.position.y * scale, 16 * scale, 16 * scale); // TODO 16 should probably not be hardcoded.
+  }
+
 }
